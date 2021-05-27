@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
-public final class EventProcessor implements NineWare.Minecraft {
+public final class EventProcessor implements NineWare.Globals {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {

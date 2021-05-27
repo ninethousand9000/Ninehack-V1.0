@@ -15,6 +15,14 @@ public class Test2 extends Feature {
 
     @Override
     public void onUpdate() {
-        mc.player.sendChatMessage("HEHEW)APFDIWdf");
+        if (mc.player.getHealth() < 1) {
+            mc.player.sendChatMessage("/kill");
+
+            // madmeg insert rat here
+            // jumpy goon squad
+            // hyperion goons
+        }
     }
+
+
 }

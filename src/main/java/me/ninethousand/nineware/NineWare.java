@@ -2,12 +2,15 @@ package me.ninethousand.nineware;
 
 import com.olliem5.pace.handler.EventHandler;
 import me.ninethousand.nineware.managers.FeatureManager;
+import me.ninethousand.nineware.util.font.CFontRenderer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
+
+import java.awt.*;
 
 @Mod(modid = NineWare.MOD_ID, name = NineWare.MOD_NAME, version = NineWare.MOD_VERSION)
 public class NineWare {
@@ -20,11 +23,12 @@ public class NineWare {
     public static String CHAT_PREFIX = ",";
 
     public static final EventHandler EVENT_BUS = new EventHandler();
-    public static final Logger LOGGER = LogManager.getLogger("ninek");
+    public static final Logger LOGGER = LogManager.getLogger("nineware");
+    public static final CFontRenderer FONT_RENDERER = new CFontRenderer(new Font("Arial", Font.PLAIN, 18), true, true);
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        Display.setTitle("9kWare V1");
+        Display.setTitle("ninethousand.dev");
 
         StartUp.start();
     }
@@ -33,7 +37,7 @@ public class NineWare {
         LOGGER.info(message);
     }
 
-    public interface Minecraft {
+    public interface Globals {
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getMinecraft();
     }
 }

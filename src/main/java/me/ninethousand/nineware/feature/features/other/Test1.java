@@ -4,6 +4,7 @@ import me.ninethousand.nineware.feature.Category;
 import me.ninethousand.nineware.feature.Feature;
 import me.ninethousand.nineware.feature.NineWareFeature;
 import me.ninethousand.nineware.feature.setting.Setting;
+import me.ninethousand.nineware.managers.FeatureManager;
 import org.lwjgl.input.Keyboard;
 
 @NineWareFeature(name = "Test1", description = "Sends A Chat Message", category = Category.Other, key = Keyboard.KEY_I)
@@ -12,10 +13,11 @@ public class Test1 extends Feature {
 
     public Test1() {
         addSettings(spam);
+        setOpened(true);
     }
 
     @Override
     public void onEnable() {
-        mc.player.sendChatMessage("Hi");
+        mc.player.sendChatMessage(FeatureManager.getFeatureByClazz(Test1.class).getName());
     }
 }

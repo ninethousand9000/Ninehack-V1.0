@@ -3,12 +3,14 @@ package me.ninethousand.nineware.feature;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.nineware.NineWare;
 import me.ninethousand.nineware.feature.setting.Setting;
+import me.ninethousand.nineware.util.ChatUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class Feature implements NineWare.Minecraft {
+public abstract class Feature implements NineWare.Globals {
     private final String name = getAnnotation().name();
+    private final Class clazz = getAnnotation().getClass();
     private final String description = getAnnotation().description();
     private final Category category = getAnnotation().category();
 
@@ -60,12 +62,12 @@ public abstract class Feature implements NineWare.Minecraft {
         String narratorMessage;
 
         if (enable) {
-            message = ChatFormatting.BLUE + "[" + ChatFormatting.DARK_AQUA + name + ChatFormatting.BLUE + "]" +  ChatFormatting.GREEN + " enabled";
-            narratorMessage = name + " is now enabled";
+            message =  ChatFormatting.GREEN + name + " enabled.";
         } else {
-            message = ChatFormatting.BLUE + "[" + ChatFormatting.DARK_AQUA + name + ChatFormatting.BLUE + "]" + ChatFormatting.RED + " disabled";
-            narratorMessage = name + " is now disabled";
+            message = ChatFormatting.RED + name + " disabled.";
         }
+
+        ChatUtil.sendClientMessage(message);
     }
 
     public void toggle() {
@@ -97,6 +99,11 @@ public abstract class Feature implements NineWare.Minecraft {
     public String getName() {
         return name;
     }
+
+    public Class getClazz() {
+        return clazz;
+    }
+
 
     public Category getCategory() {
         return category;

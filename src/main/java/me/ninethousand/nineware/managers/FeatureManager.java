@@ -2,6 +2,8 @@ package me.ninethousand.nineware.managers;
 
 import me.ninethousand.nineware.feature.Category;
 import me.ninethousand.nineware.feature.Feature;
+import me.ninethousand.nineware.feature.features.client.GUI;
+import me.ninethousand.nineware.feature.features.movement.Sprint;
 import me.ninethousand.nineware.feature.features.other.Test1;
 import me.ninethousand.nineware.feature.features.other.Test2;
 import me.ninethousand.nineware.feature.features.other.Test3;
@@ -14,6 +16,8 @@ public final class FeatureManager {
 
     public static void init() {
         features.addAll(Arrays.asList(
+                new GUI(),
+                new Sprint(),
                 new Test1(),
                 new Test2(),
                 new Test3()
@@ -45,6 +49,13 @@ public final class FeatureManager {
     public static Feature getFeatureByName(String name) {
         return features.stream()
                 .filter(feature -> feature.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static Feature getFeatureByClazz(Class clazz) {
+        return features.stream()
+                .filter(feature -> feature.getClazz().equals(clazz))
                 .findFirst()
                 .orElse(null);
     }
