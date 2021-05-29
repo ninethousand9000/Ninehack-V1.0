@@ -1,0 +1,30 @@
+package me.ninethousand.ninehack.feature.features.movement;
+
+import me.ninethousand.ninehack.feature.Category;
+import me.ninethousand.ninehack.feature.Feature;
+import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.setting.Setting;
+import me.ninethousand.ninehack.util.ChatUtil;
+import org.lwjgl.input.Keyboard;
+
+@NineHackFeature(name = "Sprint", description = "Be fast af", category = Category.Movement, key = Keyboard.KEY_F)
+public class Sprint extends Feature {
+    public static final Feature INSTANCE = new Sprint();
+
+    public static final Setting<SprintMode> mode = new Setting<>("Mode", SprintMode.Rage);
+
+    public Sprint() {
+        addSettings(mode);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (!mc.player.isSprinting())
+            mc.player.setSprinting(mode.getValue() == SprintMode.Rage || mc.gameSettings.keyBindForward.isKeyDown());
+    }
+
+    public enum SprintMode {
+        Rage,
+        Normal
+    }
+}

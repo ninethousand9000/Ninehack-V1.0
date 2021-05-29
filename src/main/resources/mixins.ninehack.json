@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "git.yagel15637.sandstorm.mixin",
+  "refmap": "refmap.nineware.json",
+  "mixins": [
+    "accessors.game.IMinecraft",
+    "mixins.game.MixinMinecraft",
+
+    "mixins.game.entity.MixinEntityLivingBase",
+
+    "mixins.game.entity.player.MixinEntityPlayerSP",
+
+    "mixins.game.entity.player.MixinPlayerControllerMP",
+
+    "mixins.network.MixinNetworkManager",
+
+    "accessors.network.packet.ICPacketPlayer",
+    "mixins.network.packet.MixinCPacketPlayer",
+
+    "accessors.network.packet.ICPacketUseEntity",
+    "mixins.network.packet.MixinCPacketUseEntity",
+
+    "accessors.network.packet.ISPacketEntityVelocity",
+    "mixins.network.packet.MixinSPacketEntityVelocity",
+
+    "mixins.render.MixinRenderLivingBase",
+
+    "accessors.util.ITimer",
+    "mixins.util.MixinTimer"
+  ]
+}
