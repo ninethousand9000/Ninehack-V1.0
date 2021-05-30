@@ -22,7 +22,7 @@ public class NineHack {
 
     public static final EventHandler EVENT_BUS = new EventHandler();
     public static final Logger LOGGER = LogManager.getLogger("ninehack");
-    public static final CFontRenderer FONT_RENDERER = new CFontRenderer(new Font("Arial", Font.PLAIN, 18), true, true);
+    public static final CFontRenderer FONT_RENDERER = new CFontRenderer(new Font("Montserrat", Font.PLAIN, 18), true, true);
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {

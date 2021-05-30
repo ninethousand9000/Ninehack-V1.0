@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 public abstract class Feature implements NineHack.Globals {
     private final String name = getAnnotation().name();
-    private final Class clazz = getAnnotation().getClass();
     private final String description = getAnnotation().description();
     private final Category category = getAnnotation().category();
 
@@ -100,11 +99,6 @@ public abstract class Feature implements NineHack.Globals {
         return name;
     }
 
-    public Class getClazz() {
-        return clazz;
-    }
-
-
     public Category getCategory() {
         return category;
     }
@@ -129,12 +123,12 @@ public abstract class Feature implements NineHack.Globals {
         this.key = key;
     }
 
-    public ArrayList<Setting<?>> getSettings() {
-        return settings;
-    }
-
     public void addSettings(Setting<?>... settings) {
         this.settings.addAll(Arrays.asList(settings));
+    }
+
+    public ArrayList<Setting<?>> getSettings() {
+        return settings;
     }
 
     public boolean hasSettings() {

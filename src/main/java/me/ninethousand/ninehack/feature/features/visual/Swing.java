@@ -10,7 +10,7 @@ import net.minecraft.util.EnumHand;
 
 @NineHackFeature(name = "Swing", description = "Swings with hand", category = Category.Visual)
 public class Swing extends Feature {
-    public static final Feature INSTANCE = new Swing();
+    public static Feature INSTANCE;
     public static Setting<Hand> hand = new Setting<>("Hand", Hand.PACKETSWING);
 
     @Override
@@ -22,12 +22,6 @@ public class Swing extends Feature {
         }
         if (hand.getValue().equals(Hand.MAINHAND)) {
             mc.player.swingingHand = EnumHand.MAIN_HAND;
-        }
-        if (hand.getValue() == Hand.PACKETSWING) {
-            if (mc.player.getHeldItemMainhand().getItem() instanceof ItemSword) {
-                WorldUtil.setEquippedProgressMainhand(50f);
-                WorldUtil.setitemStackMainHand(mc.player.getHeldItemMainhand());
-            }
         }
     }
 

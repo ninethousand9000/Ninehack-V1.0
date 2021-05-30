@@ -2,6 +2,7 @@ package me.ninethousand.ninehack.managers;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
+import me.ninethousand.ninehack.feature.features.client.HUD;
 import me.ninethousand.ninehack.feature.features.visual.Blur;
 import me.ninethousand.ninehack.feature.features.client.GUI;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
@@ -16,11 +17,21 @@ public final class FeatureManager {
 
     public static void init() {
         features.addAll(Arrays.asList(
-                GUI.INSTANCE,
-                Sprint.INSTANCE,
-                Blur.INSTANCE,
-                Swing.INSTANCE,
-                FOV.INSTANCE
+                // Combat Features
+
+                // Movement Features
+                Sprint.INSTANCE = new Sprint(),
+
+                // Other Features
+
+                // Visual Features
+                Blur.INSTANCE = new Blur(),
+                FOV.INSTANCE = new FOV(),
+                Swing.INSTANCE = new Swing(),
+
+                // Client Features
+                GUI.INSTANCE = new GUI(),
+                HUD.INSTANCE = new HUD()
         ));
 
         features.sort(FeatureManager::alphabetize);
@@ -49,13 +60,6 @@ public final class FeatureManager {
     public static Feature getFeatureByName(String name) {
         return features.stream()
                 .filter(feature -> feature.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public static Feature getFeatureByClazz(Class clazz) {
-        return features.stream()
-                .filter(feature -> feature.getClazz().equals(clazz))
                 .findFirst()
                 .orElse(null);
     }

@@ -8,7 +8,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
 
 public class ChatUtil implements NineHack.Globals {
-    private static final String prefix = ChatFormatting.BLUE + "[" + ChatFormatting.RED + "NineWare" + ChatFormatting.BLUE + "]";
+    private static final String prefix = ChatFormatting.BLUE + "[" + ChatFormatting.RED + "NineHack" + ChatFormatting.BLUE + "]";
 
     public static void sendClientMessageSimple(String message) {
         mc.player.sendMessage(new TextComponentString(prefix + " " + ChatFormatting.WHITE + message));

@@ -7,7 +7,7 @@ import me.ninethousand.ninehack.feature.setting.NumberSetting;
 
 @NineHackFeature(name = "Custom FOV", description = "Change default FOV", category = Category.Visual)
 public class FOV extends Feature {
-    public static final Feature INSTANCE = new FOV();
+    public static Feature INSTANCE;
     NumberSetting<Integer> fov = new NumberSetting<>("FOV", 30, 120, 150, 1);
 
     public FOV() {
