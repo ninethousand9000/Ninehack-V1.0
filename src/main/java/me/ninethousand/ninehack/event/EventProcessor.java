@@ -1,10 +1,16 @@
 package me.ninethousand.ninehack.event;
 
+import com.olliem5.pace.annotation.PaceHandler;
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.event.events.PacketEvent;
+import me.ninethousand.ninehack.event.events.TotemPopEvent;
 import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.yagel15637.venture.manager.CommandManager;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -29,7 +35,7 @@ public final class EventProcessor implements NineHack.Globals {
                 // if someone presses the command prefix, it will open the chat box
                 // with the key prefix already typed in (not working atm :/)
                 if (keyName.equalsIgnoreCase(NineHack.CHAT_PREFIX)) {
-                    mc.displayGuiScreen(new GuiChat(NineHack.CHAT_PREFIX));
+                    mc.displayGuiScreen(new GuiChat("HAHA Faggot!"));
                 }
 
                 try {
@@ -111,18 +117,18 @@ public final class EventProcessor implements NineHack.Globals {
         NineHack.EVENT_BUS.dispatchEvent(event);
     }
 
-//    @PaceHandler
-//    public void onPacketReceive(PacketEvent.Receive event) {
-//        if (event.getPacket() instanceof SPacketEntityStatus) {
-//            SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
-//
-//            if (packet.getOpCode() == 35) {
-//                Entity entity = packet.getEntity(mc.world);
-//
-//                if (entity instanceof EntityPlayer && entity != mc.player) {
-//                    NinekWare.EVENT_BUS.dispatchPaceEvent(new TotemPopEvent(entity));
-//                }
-//            }
-//        }
-//    }
+    @PaceHandler
+    public void onPacketReceive(PacketEvent.Receive event) {
+        if (event.getPacket() instanceof SPacketEntityStatus) {
+            SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
+
+            if (packet.getOpCode() == 35) {
+                Entity entity = packet.getEntity(mc.world);
+
+                if (entity instanceof EntityPlayer && entity != mc.player) {
+                    NineHack.EVENT_BUS.dispatchPaceEvent(new TotemPopEvent(entity));
+                }
+            }
+        }
+    }
 }

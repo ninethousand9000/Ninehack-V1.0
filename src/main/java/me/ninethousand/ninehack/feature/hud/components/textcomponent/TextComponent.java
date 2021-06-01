@@ -1,6 +1,6 @@
 package me.ninethousand.ninehack.feature.hud.components.textcomponent;
 
-import me.ninethousand.ninehack.feature.hud.Component;
+import me.ninethousand.ninehack.feature.hud.components.Component;
 
 public abstract class TextComponent extends Component {
     private String text;

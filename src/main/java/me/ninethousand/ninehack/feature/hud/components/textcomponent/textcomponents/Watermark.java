@@ -2,7 +2,7 @@ package me.ninethousand.ninehack.feature.hud.components.textcomponent.textcompon
 
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.features.client.ClientFont;
-import me.ninethousand.ninehack.feature.hud.Component;
+import me.ninethousand.ninehack.feature.hud.components.Component;
 import me.ninethousand.ninehack.feature.hud.components.textcomponent.TextComponent;
 
 public class Watermark extends TextComponent {

@@ -34,7 +34,8 @@ public final class FeatureManager {
                 GUI.INSTANCE = new GUI(),
                 HUD.INSTANCE = new HUD(),
                 ClientFont.INSTANCE = new ClientFont(),
-                ClientColor.INSTANCE = new ClientColor()
+                ClientColor.INSTANCE = new ClientColor(),
+                Notify.INSTANCE = new Notify()
         ));
 
         features.sort(FeatureManager::alphabetize);

@@ -29,7 +29,7 @@ minecraft {
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            args '--username', 'ninethousand'
+            args '--username', 'RITZY'
 
             workingDirectory project.file('run')
 

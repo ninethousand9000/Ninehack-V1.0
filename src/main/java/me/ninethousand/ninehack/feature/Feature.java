@@ -2,7 +2,12 @@ package me.ninethousand.ninehack.feature;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.feature.features.client.GUI;
+import me.ninethousand.ninehack.feature.features.client.Notify;
+import me.ninethousand.ninehack.feature.hud.notifications.Notification;
+import me.ninethousand.ninehack.feature.hud.notifications.NotificationType;
 import me.ninethousand.ninehack.feature.setting.Setting;
+import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;
 
 import java.util.ArrayList;
@@ -57,16 +62,27 @@ public abstract class Feature implements NineHack.Globals {
     private void handleNotifications(boolean enable) {
         if (nullCheck()) return;
 
-        String message;
-        String narratorMessage;
+        if (Notify.moduleToggle.getValue() != Notify.ModuleToggleMode.None) {
+            String message;
+            if (this.getClass() != GUI.class)
+                if (Notify.moduleToggle.getValue() == Notify.ModuleToggleMode.Chat) {
+                    if (enable) {
+                        message =  ChatFormatting.GREEN + name + " enabled.";
+                    } else {
+                        message = ChatFormatting.RED + name + " disabled.";
+                    }
+                    ChatUtil.sendClientMessage(message);
+                }
+                else if (Notify.moduleToggle.getValue() == Notify.ModuleToggleMode.HUD) {
+                    if (enable) {
+                        message =  name + " enabled.";
+                    } else {
+                        message = name + " disabled.";
+                    }
 
-        if (enable) {
-            message =  ChatFormatting.GREEN + name + " enabled.";
-        } else {
-            message = ChatFormatting.RED + name + " disabled.";
+                    NotificationManager.show(new Notification(NotificationType.INFO, "Module Toggle", message, 5));
+                }
         }
-
-        ChatUtil.sendClientMessage(message);
     }
 
     public void toggle() {
