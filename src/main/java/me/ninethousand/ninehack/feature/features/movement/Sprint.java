@@ -4,6 +4,7 @@ import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.util.ChatUtil;
 import org.lwjgl.input.Keyboard;
@@ -14,8 +15,9 @@ public class Sprint extends Feature {
 
     public static final Setting<SprintMode> mode = new Setting<>("Mode", SprintMode.Rage);
 
+
     public Sprint() {
-        this.addSettings(mode);
+        addSettings(mode);
     }
 
     @Override

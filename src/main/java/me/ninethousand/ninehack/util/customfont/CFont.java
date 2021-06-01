@@ -1,4 +1,4 @@
-package me.ninethousand.ninehack.util.font;
+package me.ninethousand.ninehack.util.customfont;
 
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
@@ -8,8 +8,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class CFont {
-
-    private final float imgSize = 512;
     protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
@@ -17,27 +15,28 @@ public class CFont {
     protected int fontHeight = -1;
     protected int charOffset = 0;
     protected DynamicTexture tex;
+    private final float imgSize = 512.0f;
 
     public CFont(Font font, boolean antiAlias, boolean fractionalMetrics) {
         this.font = font;
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
-        tex = setupTexture(font, antiAlias, fractionalMetrics, this.charData);
+        this.tex = this.setupTexture(font, antiAlias, fractionalMetrics, this.charData);
     }
 
     protected DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
-        BufferedImage img = generateFontImage(font, antiAlias, fractionalMetrics, chars);
+        BufferedImage img = this.generateFontImage(font, antiAlias, fractionalMetrics, chars);
         try {
             return new DynamicTexture(img);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     protected BufferedImage generateFontImage(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
         int imgSize = (int) this.imgSize;
-        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, 2);
         Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
         g.setFont(font);
         g.setColor(new Color(255, 255, 255, 0));
@@ -50,11 +49,11 @@ public class CFont {
         int charHeight = 0;
         int positionX = 0;
         int positionY = 1;
-        for (int i = 0; i < chars.length; i++) {
+        for (int i = 0; i < chars.length; ++i) {
             char ch = (char) i;
             CharData charData = new CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(ch), g);
-            charData.width = (dimensions.getBounds().width + 8);
+            charData.width = dimensions.getBounds().width + 8;
             charData.height = dimensions.getBounds().height;
             if (positionX + charData.width >= imgSize) {
                 positionX = 0;
@@ -78,17 +77,17 @@ public class CFont {
 
     public void drawChar(CharData[] chars, char c, float x, float y) throws ArrayIndexOutOfBoundsException {
         try {
-            drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
+            this.drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     protected void drawQuad(float x, float y, float width, float height, float srcX, float srcY, float srcWidth, float srcHeight) {
-        float renderSRCX = srcX / imgSize;
-        float renderSRCY = srcY / imgSize;
-        float renderSRCWidth = srcWidth / imgSize;
-        float renderSRCHeight = srcHeight / imgSize;
+        float renderSRCX = srcX / this.imgSize;
+        float renderSRCY = srcY / this.imgSize;
+        float renderSRCWidth = srcWidth / this.imgSize;
+        float renderSRCHeight = srcHeight / this.imgSize;
         GL11.glTexCoord2f(renderSRCX + renderSRCWidth, renderSRCY);
         GL11.glVertex2d(x + width, y);
         GL11.glTexCoord2f(renderSRCX, renderSRCY);
@@ -104,7 +103,7 @@ public class CFont {
     }
 
     public int getStringHeight(String text) {
-        return getHeight();
+        return this.getHeight();
     }
 
     public int getHeight() {
@@ -114,9 +113,8 @@ public class CFont {
     public int getStringWidth(String text) {
         int width = 0;
         for (char c : text.toCharArray()) {
-            if ((c < this.charData.length) && (c >= 0)) {
-                width += this.charData[c].width - 8 + this.charOffset;
-            }
+            if (c >= this.charData.length || c < '\u0000') continue;
+            width += this.charData[c].width - 8 + this.charOffset;
         }
         return width / 2;
     }
@@ -128,7 +126,7 @@ public class CFont {
     public void setAntiAlias(boolean antiAlias) {
         if (this.antiAlias != antiAlias) {
             this.antiAlias = antiAlias;
-            tex = setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
+            this.tex = this.setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
         }
     }
 
@@ -139,7 +137,7 @@ public class CFont {
     public void setFractionalMetrics(boolean fractionalMetrics) {
         if (this.fractionalMetrics != fractionalMetrics) {
             this.fractionalMetrics = fractionalMetrics;
-            tex = setupTexture(this.font, this.antiAlias, fractionalMetrics, this.charData);
+            this.tex = this.setupTexture(this.font, this.antiAlias, fractionalMetrics, this.charData);
         }
     }
 
@@ -149,18 +147,16 @@ public class CFont {
 
     public void setFont(Font font) {
         this.font = font;
-        tex = setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
+        this.tex = this.setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
     }
 
     protected static class CharData {
-
         public int width;
         public int height;
         public int storedX;
         public int storedY;
 
         protected CharData() {
-
         }
     }
 }

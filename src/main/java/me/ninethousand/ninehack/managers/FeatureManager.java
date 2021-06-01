@@ -2,9 +2,9 @@ package me.ninethousand.ninehack.managers;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.features.client.HUD;
+import me.ninethousand.ninehack.feature.features.client.*;
+import me.ninethousand.ninehack.feature.features.movement.AntiWeb;
 import me.ninethousand.ninehack.feature.features.visual.Blur;
-import me.ninethousand.ninehack.feature.features.client.GUI;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
 import me.ninethousand.ninehack.feature.features.visual.FOV;
 import me.ninethousand.ninehack.feature.features.visual.Swing;
@@ -21,6 +21,7 @@ public final class FeatureManager {
 
                 // Movement Features
                 Sprint.INSTANCE = new Sprint(),
+                AntiWeb.INSTANCE = new AntiWeb(),
 
                 // Other Features
 
@@ -31,7 +32,9 @@ public final class FeatureManager {
 
                 // Client Features
                 GUI.INSTANCE = new GUI(),
-                HUD.INSTANCE = new HUD()
+                HUD.INSTANCE = new HUD(),
+                ClientFont.INSTANCE = new ClientFont(),
+                ClientColor.INSTANCE = new ClientColor()
         ));
 
         features.sort(FeatureManager::alphabetize);

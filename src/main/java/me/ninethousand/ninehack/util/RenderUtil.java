@@ -49,4 +49,8 @@ public class RenderUtil {
         GlStateManager.disableBlend();
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
     }
+
+    public void drawParticles() {
+
+    }
 }

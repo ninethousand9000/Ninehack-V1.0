@@ -18,7 +18,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 group = 'me.ninethousand'
 version = '0.1 Pre Alpha'
-archivesBaseName = '9kWare'
+archivesBaseName = 'ninehack'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -33,7 +33,7 @@ minecraft {
 
             workingDirectory project.file('run')
 
-            property 'fml.coreMods.load', 'git.yagel15637.sandstorm.mixin.MixinLoader'
+            property 'fml.coreMods.load', 'me.ninethousand.ninehack.mixin.MixinLoader'
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'

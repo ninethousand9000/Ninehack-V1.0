@@ -11,7 +11,12 @@ import net.minecraft.util.EnumHand;
 @NineHackFeature(name = "Swing", description = "Swings with hand", category = Category.Visual)
 public class Swing extends Feature {
     public static Feature INSTANCE;
-    public static Setting<Hand> hand = new Setting<>("Hand", Hand.PACKETSWING);
+
+    public static Setting<Hand> hand = new Setting<>("Hand", Hand.OFFHAND);
+
+    public Swing() {
+        addSettings(hand);
+    }
 
     @Override
     public void onUpdate() {
@@ -28,7 +33,6 @@ public class Swing extends Feature {
     public enum Hand {
         OFFHAND,
         MAINHAND,
-        PACKETSWING
     }
 
 }
