@@ -1,9 +1,9 @@
-package me.ninethousand.ninehack.feature.hud.components.textcomponent.textcomponents;
+package me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.textcomponents;
 
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.features.client.ClientFont;
-import me.ninethousand.ninehack.feature.hud.components.Component;
-import me.ninethousand.ninehack.feature.hud.components.textcomponent.TextComponent;
+import me.ninethousand.ninehack.feature.gui.hud.components.Component;
+import me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.TextComponent;
 
 public class Watermark extends TextComponent {
     public static Component INSTANCE;

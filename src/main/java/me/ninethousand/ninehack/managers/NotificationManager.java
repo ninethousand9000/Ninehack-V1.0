@@ -1,6 +1,6 @@
 package me.ninethousand.ninehack.managers;
 
-import me.ninethousand.ninehack.feature.hud.notifications.Notification;
+import me.ninethousand.ninehack.feature.gui.notifications.Notification;
 
 import java.util.concurrent.LinkedBlockingQueue;
 

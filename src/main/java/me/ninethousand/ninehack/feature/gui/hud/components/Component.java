@@ -1,4 +1,4 @@
-package me.ninethousand.ninehack.feature.hud.components;
+package me.ninethousand.ninehack.feature.gui.hud.components;
 
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.features.client.ClientFont;

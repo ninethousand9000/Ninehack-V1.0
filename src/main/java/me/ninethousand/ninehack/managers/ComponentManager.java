@@ -1,9 +1,9 @@
 package me.ninethousand.ninehack.managers;
 
 import me.ninethousand.ninehack.NineHack;
-import me.ninethousand.ninehack.feature.hud.components.Component;
-import me.ninethousand.ninehack.feature.hud.components.textcomponent.TextComponent;
-import me.ninethousand.ninehack.feature.hud.components.textcomponent.textcomponents.Watermark;
+import me.ninethousand.ninehack.feature.gui.hud.components.Component;
+import me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.TextComponent;
+import me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.textcomponents.Watermark;
 
 import java.util.ArrayList;
 import java.util.Arrays;
