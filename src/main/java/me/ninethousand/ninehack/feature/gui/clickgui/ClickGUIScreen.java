@@ -5,6 +5,8 @@ import me.ninethousand.ninehack.managers.FeatureManager;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
+import java.io.IOException;
+
 public class ClickGUIScreen extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -41,7 +43,15 @@ public class ClickGUIScreen extends GuiScreen {
     }
 
     @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+
+        ClickGUI.keyDown = keyCode;
+    }
+
+    @Override
     public void onGuiClosed() {
         GUI.guiOpen = false;
+        GUI.INSTANCE.setEnabled(false);
     }
 }

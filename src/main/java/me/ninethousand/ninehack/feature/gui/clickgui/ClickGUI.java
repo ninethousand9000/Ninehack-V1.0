@@ -10,10 +10,12 @@ import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.ninethousand.ninehack.util.RenderUtil;
 import org.apache.commons.lang3.text.WordUtils;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.Key;
 import java.util.ArrayList;
 
 public class ClickGUI implements NineHack.Globals {
@@ -30,6 +32,7 @@ public class ClickGUI implements NineHack.Globals {
     public static Color FONT_COLOR = new Color(0xFFFFFF);
 
     public static boolean leftClicked = false, leftDown = false, rightClicked = false, rightDown = false;
+    public static int keyDown = Keyboard.KEY_NONE;
 
     public static void drawGUI(int posX, int posY, int mouseX, int mouseY) {
         int x = posX + EDGE_SPACING_X + 20;
@@ -151,6 +154,7 @@ public class ClickGUI implements NineHack.Globals {
             boostY += 1;
         }
         /*RenderUtil.drawRect(x + 2, ogY - 1, x + 4, ogY + boostY - 1, ACCENT_COLOR);*/
+        boostY += drawBind(feature, keyDown, x, y, mouseX, mouseY);
 
         return boostY;
     }
@@ -367,9 +371,35 @@ public class ClickGUI implements NineHack.Globals {
         return FEATURE_HEIGHT;
     }
 
-    private static int drawBindSetting(int key , int x, int y, int mouseX, int mouseY) {
-        return HEIGHT - 2;
+    private static int drawBind(Feature feature , int key, int x, int y, int mouseX, int mouseY) {
+        if (leftClicked && mouseHovering(x + 2, y - 1, x + WIDTH -2, y + FEATURE_HEIGHT, mouseX, mouseY))
+            feature.setBinding(!feature.isBinding());
+
+        if (feature.isBinding() && !(key == Keyboard.KEY_NONE || key == Keyboard.KEY_DELETE)) {
+            feature.setKey(key);
+            feature.setBinding(false);
+        }
+
+        if (feature.isBinding() && key == Keyboard.KEY_DELETE) {
+            feature.setKey(Keyboard.KEY_DELETE);
+            feature.setBinding(false);
+        }
+
+        if (feature.isBinding() && key == Keyboard.KEY_ESCAPE) {
+            feature.setKey(Keyboard.KEY_G);
+            feature.setBinding(false);
+        }
+        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 1, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+
+        final String keyName = feature.isBinding() == true ? "..." : Keyboard.getKeyName(feature.getKey());
+        NineHack.TEXT_MANAGER.drawStringWithShadow("Bind" + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
+        NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(keyName), x + 6 + NineHack.TEXT_MANAGER.getStringWidth("Bind" + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
+
+
+
+        return FEATURE_HEIGHT;
     }
+
 
     private static final boolean mouseHovering(final int left, final int top, final int right, final int bottom, final int mouseX, final int mouseY) {
         return mouseX > left && mouseX < right && mouseY > top && mouseY < bottom;
