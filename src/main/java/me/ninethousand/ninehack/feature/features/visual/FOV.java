@@ -15,7 +15,7 @@ public class FOV extends Feature {
     }
 
     @Override
-    public void onEnable() {
+    public void onUpdate() {
         mc.gameSettings.fovSetting = (float) fov.getValue();
     }
 }
