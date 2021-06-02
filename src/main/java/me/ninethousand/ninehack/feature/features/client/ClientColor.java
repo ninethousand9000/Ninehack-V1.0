@@ -15,6 +15,8 @@ import java.util.Map;
 public class ClientColor extends Feature {
     public static Feature INSTANCE;
 
+    public static final Setting<Color> GLOBAL_COLOR = new Setting<>("Global Color", new Color(0x695AAD));
+
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);
     public static final NumberSetting<Integer> rainbowSpeed = new NumberSetting<>("Speed", 0, 20, 100, 1);
     public static final NumberSetting<Integer> rainbowSat = new NumberSetting<>("Saturation", 0, 255, 255, 1);
@@ -30,6 +32,7 @@ public class ClientColor extends Feature {
 
     public ClientColor() {
         addSettings(
+                GLOBAL_COLOR,
                 rainbow,
                 rainbowSpeed,
                 rainbowSat,
