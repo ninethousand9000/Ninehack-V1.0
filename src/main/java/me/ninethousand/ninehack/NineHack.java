@@ -1,6 +1,7 @@
 package me.ninethousand.ninehack;
 
 import com.olliem5.pace.handler.EventHandler;
+import me.ninethousand.ninehack.feature.gui.menu.CustomMainMenu;
 import me.ninethousand.ninehack.managers.TextManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,13 +19,14 @@ public class NineHack {
     public static final String MOD_VERSION = "1.0.0";
     public static final String MOD_EDITION = "Pre-Release";
     public static final String APP_ID = "847411619914711061";
-    public static final String NAME_VERSION = MOD_NAME + " " + MOD_VERSION;
+    public static final String NAME_VERSION = MOD_NAME + " v" + MOD_VERSION;
     public static String CHAT_PREFIX = ",";
     public static final int DEFAULT_GUI_KEY = Keyboard.KEY_I;
 
     public static final EventHandler EVENT_BUS = new EventHandler();
     public static final Logger LOGGER = LogManager.getLogger("ninehack");
     public static final TextManager TEXT_MANAGER = new TextManager();
+    public static final CustomMainMenu CUSTOM_MAIN_MENU = new CustomMainMenu();
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {

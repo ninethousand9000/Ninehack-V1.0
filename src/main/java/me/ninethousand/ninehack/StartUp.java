@@ -21,6 +21,8 @@ public class StartUp {
 
         initCommandManager();
         NineHack.log("Commands Initialised");
+
+        NineHack.CUSTOM_MAIN_MENU.initGui();
     }
 
     private static void initCommandManager() {
