@@ -205,17 +205,23 @@ public class ClickGUI implements NineHack.Globals {
             setting.setValue((new BigDecimal(newVal).setScale(1, newVal > (max - min) / 2 ? RoundingMode.UP : RoundingMode.DOWN).intValue()));
         }
 
-        int progress = settingWidth * (setting.getValue() - min) / (max - min);
+        int progress = new BigDecimal((WIDTH - 2) * (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin())).setScale(2, RoundingMode.DOWN).intValue();
 
-        if (progress == 0)
+        if (mouseHovering(x, y, x + 3, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
             setting.setValue(min);
+            progress = 0;
+        }
         if (mouseHovering(x + settingWidth - 1, y, x + settingWidth + 1, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
             setting.setValue(max);
             progress = settingWidth;
         }
 
         RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
-        RenderUtil.drawRect(x + 2, y - 1, progress == 0 ? x + 2 : x + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+
+        if (progress > 0) {
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+        }
+
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
         NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(setting.getValue().toString()), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(setting.getName() + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
 
@@ -244,15 +250,34 @@ public class ClickGUI implements NineHack.Globals {
     }*/
 
     private static int drawDoubleSetting(NumberSetting<Double> setting , int x, int y, int mouseX, int mouseY) {
-        if (leftDown && mouseHovering(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, mouseX, mouseY)) {
-            double percentError = (mouseX - (x + 2)) * 100.0 / ((x + 2 + WIDTH - 2) - x + 2);
-            double newVal = percentError * ((setting.getMax() - setting.getMin()) / 100F) + setting.getMin();
-            setting.setValue(new BigDecimal(newVal).setScale(2, RoundingMode.UP).doubleValue());
-        }
-        int progress = (int) ((WIDTH - 2) * (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin()));
+        int settingWidth = WIDTH - 2;
 
-        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
-        RenderUtil.drawRect(x + 2, y - 1, x + 2 + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+        double min = setting.getMin();
+        double max = setting.getMax();
+
+        if (leftDown && mouseHovering(x, y, x + settingWidth, y + FEATURE_HEIGHT, mouseX, mouseY)) {
+            double percentError = (mouseX - (x)) * 100.0 / ((x + settingWidth) - x);
+            double newVal = percentError * ((max - min) / 100F) + min;
+            setting.setValue((new BigDecimal(newVal).setScale(1, newVal > (max - min) / 2 ? RoundingMode.UP : RoundingMode.DOWN).doubleValue()));
+        }
+
+        int progress = new BigDecimal((WIDTH - 2) * (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin())).setScale(2, RoundingMode.DOWN).intValue();
+
+        if (mouseHovering(x, y, x + 3, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
+            setting.setValue(min);
+            progress = 0;
+        }
+        if (mouseHovering(x + settingWidth - 1, y, x + settingWidth + 1, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
+            setting.setValue(max);
+            progress = settingWidth;
+        }
+
+        RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+
+        if (progress > 0) {
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+        }
+
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
         NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(setting.getValue().toString()), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(setting.getName() + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
 
@@ -260,15 +285,34 @@ public class ClickGUI implements NineHack.Globals {
     }
 
     private static int drawFloatSetting(NumberSetting<Float> setting , int x, int y, int mouseX, int mouseY) {
-        if (leftDown && mouseHovering(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, mouseX, mouseY)) {
-            double percentError = (mouseX - (x + 2)) * 100.0 / ((x + 2 + WIDTH - 2) - x + 2);
-            double newVal = percentError * ((setting.getMax() - setting.getMin()) / 100F) + setting.getMin();
-            setting.setValue(new BigDecimal(newVal).setScale(2, RoundingMode.UP).floatValue());
-        }
-        int progress = (int) ((WIDTH - 2) * (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin()));
+        int settingWidth = WIDTH - 2;
 
-        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
-        RenderUtil.drawRect(x + 2, y - 1, x + 2 + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+        float min = setting.getMin();
+        float max = setting.getMax();
+
+        if (leftDown && mouseHovering(x, y, x + settingWidth, y + FEATURE_HEIGHT, mouseX, mouseY)) {
+            double percentError = (mouseX - (x)) * 100.0 / ((x + settingWidth) - x);
+            double newVal = percentError * ((max - min) / 100F) + min;
+            setting.setValue((new BigDecimal(newVal).setScale(1, newVal > (max - min) / 2 ? RoundingMode.UP : RoundingMode.DOWN).floatValue()));
+        }
+
+        int progress = new BigDecimal((WIDTH - 2) * (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin())).setScale(2, RoundingMode.DOWN).intValue();
+
+        if (mouseHovering(x, y, x + 3, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
+            setting.setValue(min);
+            progress = 0;
+        }
+        if (mouseHovering(x + settingWidth - 1, y, x + settingWidth + 1, y + FEATURE_HEIGHT, mouseX, mouseY) && leftDown) {
+            setting.setValue(max);
+            progress = settingWidth;
+        }
+
+        RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+
+        if (progress > 0) {
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, ACCENT_COLOR);
+        }
+
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
         NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(setting.getValue().toString()), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(setting.getName() + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
 

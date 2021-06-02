@@ -8,17 +8,13 @@ import me.ninethousand.ninehack.feature.setting.NumberSetting;
 @NineHackFeature(name = "Slider Test", description = "Slide in the dms", category = Category.Other)
 public class SliderTest extends Feature {
     public static Feature INSTANCE;
-    NumberSetting<Integer> slider = new NumberSetting<>("Int Slider", 0, 50, 100, 1);
-    NumberSetting<Integer> sliderX = new NumberSetting<>("Int Slider", 0, 5, 10, 1);
-    NumberSetting<Integer> slider2 = new NumberSetting<>("Int Slider", 10, 50, 100, 1);
-    NumberSetting<Integer> slider3 = new NumberSetting<>("Int Slider", 0, 50, 98, 1);
-    NumberSetting<Integer> slider4 = new NumberSetting<>("Int Slider", 3, 50, 98, 1);
-    NumberSetting<Integer> slider5 = new NumberSetting<>("Int Slider", 2, 50, 97, 1);
-    NumberSetting<Integer> slider6 = new NumberSetting<>("Int Slider", 0, 50, 1000, 1);
+    NumberSetting<Integer> sliderI = new NumberSetting<>("Int Slider", 0, 50, 100, 1);
+    NumberSetting<Double> sliderD = new NumberSetting<>("Doub Slider", 77D, 85D, 365D, 1);
+    NumberSetting<Float> sliderF = new NumberSetting<>("Doub Slider", 77f, 85f, 365f, 1);
 
 
     public SliderTest() {
-        addSettings(slider, sliderX);
+        addSettings(sliderI, sliderD, sliderF);
     }
 
 }
