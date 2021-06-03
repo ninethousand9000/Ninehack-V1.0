@@ -14,6 +14,9 @@
 
     "mixins.game.MixinRenderEnderCrystal",
 
-    "mixins.game.MixinRenderLivingBase"
+    "mixins.game.MixinRenderLivingBase",
+
+    "accessors.game.IBlock",
+    "mixins.game.MixinBlock"
   ]
 }
