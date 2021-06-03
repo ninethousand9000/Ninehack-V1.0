@@ -1,28 +1,34 @@
 package me.ninethousand.ninehack.event.events;
 
-import com.olliem5.pace.event.Event;
+import me.ninethousand.ninehack.event.EventStage;
 import net.minecraft.network.Packet;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
-public abstract class PacketEvent extends Event {
+public class PacketEvent extends EventStage {
     private final Packet<?> packet;
 
-    public PacketEvent(Packet<?> packet) {
+    public PacketEvent(int stage, Packet<?> packet) {
+        super(stage);
         this.packet = packet;
     }
 
-    public Packet<?> getPacket() {
-        return packet;
+    public <T extends Packet<?>> T getPacket() {
+        return (T) this.packet;
     }
 
-    public static class Receive extends PacketEvent {
-        public Receive(Packet<?> packet) {
-            super(packet);
+    @Cancelable
+    public static class Send
+            extends PacketEvent {
+        public Send(int stage, Packet<?> packet) {
+            super(stage, packet);
         }
     }
 
-    public static class Send extends PacketEvent {
-        public Send(Packet<?> packet) {
-            super(packet);
+    @Cancelable
+    public static class Receive
+            extends PacketEvent {
+        public Receive(int stage, Packet<?> packet) {
+            super(stage, packet);
         }
     }
 }

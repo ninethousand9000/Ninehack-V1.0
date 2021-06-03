@@ -7,7 +7,7 @@ import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import org.lwjgl.input.Keyboard;
 
-@NineHackFeature(name = "Sprint", description = "Be fast af", category = Category.Movement, key = Keyboard.KEY_F)
+@NineHackFeature(name = "Sprint", description = "Be fast af", category = Category.Movement)
 public class Sprint extends Feature {
     public static Feature INSTANCE;
 

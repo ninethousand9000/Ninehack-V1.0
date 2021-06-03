@@ -1,6 +1,6 @@
 package me.ninethousand.ninehack;
 
-import com.olliem5.pace.handler.EventHandler;
+import me.ninethousand.ninehack.event.EventProcessor;
 import me.ninethousand.ninehack.feature.gui.menu.CustomMainMenu;
 import me.ninethousand.ninehack.managers.InventoryManager;
 import me.ninethousand.ninehack.managers.TextManager;
@@ -31,7 +31,8 @@ public class NineHack {
     public static String CHAT_PREFIX = ",";
     public static final int DEFAULT_GUI_KEY = Keyboard.KEY_I;
 
-    public static final EventHandler EVENT_BUS = new EventHandler();
+//    public static final EventHandler EVENT_BUS = new EventHandler();
+    public static final EventProcessor EVENT_PROCESSOR = new EventProcessor();
     public static final Logger LOGGER = LogManager.getLogger("ninehack");
     public static final TextManager TEXT_MANAGER = new TextManager();
     public static final CustomMainMenu CUSTOM_MAIN_MENU = new CustomMainMenu();

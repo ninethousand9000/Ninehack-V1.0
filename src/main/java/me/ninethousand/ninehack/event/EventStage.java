@@ -1,4 +1,4 @@
-package me.ninethousand.ninehack.betterevent;
+package me.ninethousand.ninehack.event;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
 

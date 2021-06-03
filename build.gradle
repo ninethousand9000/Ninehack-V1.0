@@ -64,7 +64,6 @@ dependencies {
         exclude module: 'gson'
     }
 
-    compile 'com.github.olliem5:pace:1.3'
     compile 'com.github.CafeDevelopment:Venture:2.0-SNAPSHOT'
     compile group: 'club.minnced', name: 'java-discord-rpc', version: 'v2.0.2'
 
@@ -87,7 +86,6 @@ mixin {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
-        include(dependency('com.github.olliem5:pace:1.3'))
         include(dependency('com.github.CafeDevelopment:Venture'))
         include(dependency('club.minnced:java-discord-rpc:v2.0.2'))
 

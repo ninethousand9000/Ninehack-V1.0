@@ -2,6 +2,7 @@ package me.ninethousand.ninehack.feature;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.event.events.Render2DEvent;
 import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.features.client.GUI;
@@ -11,6 +12,7 @@ import me.ninethousand.ninehack.feature.gui.notifications.NotificationType;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +48,7 @@ public abstract class Feature implements NineHack.Globals {
     public void enable() {
         enabled = true;
 
-        NineHack.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         onEnable();
 
@@ -56,7 +58,7 @@ public abstract class Feature implements NineHack.Globals {
     public void disable() {
         enabled = false;
 
-        NineHack.EVENT_BUS.unregister(this);
+        MinecraftForge.EVENT_BUS.register(this);
 
         onDisable();
 
@@ -176,5 +178,11 @@ public abstract class Feature implements NineHack.Globals {
     public void onDisable() {}
 
     public void onUpdate() {}
+
+    public void onTick() {}
+
+    public void on2DRenderEvent(Render2DEvent event) {}
+
+
 
 }

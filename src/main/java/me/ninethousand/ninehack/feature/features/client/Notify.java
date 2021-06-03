@@ -1,23 +1,22 @@
 package me.ninethousand.ninehack.feature.features.client;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.olliem5.pace.annotation.PaceHandler;
-import com.olliem5.pace.modifier.EventPriority;
-import me.ninethousand.ninehack.event.events.TotemPopEvent;
+import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.event.events.Render2DEvent;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @NineHackFeature(name = "Notify", description = "Notify you when things happen", category = Category.Client)
 public class Notify extends Feature {
-    public static Feature INSTANCE;
+    public static Notify INSTANCE;
 
     public static final Setting<Boolean> totemPop = new Setting<>("Totem Pop", false);
 
@@ -29,27 +28,39 @@ public class Notify extends Feature {
                 moduleToggle
         );
     }
-    private final Map<String, Integer> totemPopMap = new HashMap<>();
+    public static HashMap<String, Integer> popMap = new HashMap();
 
-    @PaceHandler
-    public void onTotemPop(TotemPopEvent event) {
-        if (nullCheck()) return;
-
-        int pops = totemPopMap.getOrDefault(event.getEntity().getName(), 0) + 1;
-
-        totemPopMap.put(event.getEntity().getName(), pops);
-
-        String message;
-
-        message = ChatFormatting.AQUA + event.getEntity().getName() + ChatFormatting.RESET + " popped " + ChatFormatting.RED + pops + ChatFormatting.RESET + (totemPopMap.get(event.getEntity().getName()) == 1 ? " totem" : " totems");
-
-        if (totemPop.getValue()) {
-            ChatUtil.sendClientMessageSimple(message);
+    public void onDeath(EntityPlayer player) {
+        if (popMap.containsKey(player.getName())) {
+            int l_Count = popMap.get(player.getName());
+            popMap.remove(player.getName());
+            if (l_Count == 1) {
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + ChatFormatting.RED + " totem, thanks to " + NineHack.MOD_NAME);
+            } else {
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + ChatFormatting.RED + " totems, " + "thanks to " + NineHack.MOD_NAME);
+            }
         }
     }
 
-    @PaceHandler(priority = EventPriority.LOWEST)
-    public void onHudRenderEvent(RenderGameOverlayEvent.Text hudRenderEvent) {
+    public void onTotemPop(EntityPlayer player) {
+        if (nullCheck()) return;
+
+        int l_Count = 1;
+        if (popMap.containsKey(player.getName())) {
+            l_Count = popMap.get(player.getName());
+            popMap.put(player.getName(), ++l_Count);
+        } else {
+            popMap.put(player.getName(), l_Count);
+        }
+        if (l_Count == 1) {
+            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + " totem, " + ChatFormatting.RED + "thanks to " + NineHack.MOD_NAME);
+        } else {
+            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + " totems, " + ChatFormatting.RED + "thanks to " + NineHack.MOD_NAME);
+        }
+    }
+
+    @Override
+    public void on2DRenderEvent(Render2DEvent event) {
         NotificationManager.render();
     }
 

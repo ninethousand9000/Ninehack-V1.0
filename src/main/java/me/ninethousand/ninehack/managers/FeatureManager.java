@@ -6,6 +6,7 @@ import me.ninethousand.ninehack.feature.features.client.*;
 import me.ninethousand.ninehack.feature.features.combat.Burrow;
 import me.ninethousand.ninehack.feature.features.movement.AntiWeb;
 import me.ninethousand.ninehack.feature.features.other.SliderTest;
+import me.ninethousand.ninehack.feature.features.player.Ghost;
 import me.ninethousand.ninehack.feature.features.player.PearlBind;
 import me.ninethousand.ninehack.feature.features.visual.Blur;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
@@ -30,6 +31,7 @@ public final class FeatureManager {
 
                 // Player Features
                 PearlBind.INSTANCE = new PearlBind(),
+                Ghost.INSTANCE = new Ghost(),
 
                 // Other Features
                 SliderTest.INSTANCE = new SliderTest(),
