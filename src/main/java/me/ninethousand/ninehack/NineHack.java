@@ -12,6 +12,13 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 
+/**
+ * @author 9k
+ * @since May 26th 2021
+ * @version 1.0.0 Beta
+ * @apiNote Hello
+ */
+
 @Mod(modid = NineHack.MOD_ID, name = NineHack.MOD_NAME, version = NineHack.MOD_VERSION)
 public class NineHack {
     public static final String MOD_ID = "ninehack";

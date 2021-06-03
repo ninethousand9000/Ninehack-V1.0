@@ -22,11 +22,11 @@ public class ClickGUI implements NineHack.Globals {
     public static final int EDGE_SPACING_X = 2;
     public static final int EDGE_SPACING_Y = 20;
     public static final int FEATURE_SPACING = 1;
-    public static final int WIDTH = 100;
+    public static final int WIDTH = 110;
     public static final int HEIGHT = 14;
     public static final int FEATURE_HEIGHT = HEIGHT - 2;
 
-    public static Color ACCENT_COLOR = new Color(0x695AAD);
+    public static Color ACCENT_COLOR = new Color(214,214,214,255);
     public static Color FEATURE_FILL_COLOR = new Color(0xFF474747, true);
     public static Color FEATURE_BACKGROUND_COLOR = new Color(0x52181818, true);
     public static Color FONT_COLOR = new Color(0xFFFFFF);
@@ -54,6 +54,7 @@ public class ClickGUI implements NineHack.Globals {
 
             // if outline draw the outline
             if (GUI.outline.getValue()) {
+                if (category.isOpenInGui() && !(FeatureManager.getFeaturesInCategory(category).size() <= 0)) totalY++;
                 RenderUtil.drawOutlineRect(x + 0.3D, y, x + WIDTH , y + totalY - EDGE_SPACING_Y, ACCENT_COLOR, 1.2f);
             }
 
@@ -74,13 +75,15 @@ public class ClickGUI implements NineHack.Globals {
 
     private static int drawCategoryFeatures(Category category, int x, int y, int mouseX, int mouseY) {
         ArrayList<Feature> features = new ArrayList<>();
-        int settingY = 0;
+        int settingY = 1;
 
         for (Feature feature : FeatureManager.getFeaturesInCategory(category)) {
             features.add(feature);
 
-            if (feature.isOpened())
+            if (feature.isOpened()) {
                 settingY += getSettingsHeight(feature);
+                settingY += FEATURE_HEIGHT;
+            }
         }
 
         int endY = (features.size() * FEATURE_HEIGHT) + features.size();
@@ -375,21 +378,20 @@ public class ClickGUI implements NineHack.Globals {
         if (leftClicked && mouseHovering(x + 2, y - 1, x + WIDTH -2, y + FEATURE_HEIGHT, mouseX, mouseY))
             feature.setBinding(!feature.isBinding());
 
-        if (feature.isBinding() && !(key == Keyboard.KEY_NONE || key == Keyboard.KEY_DELETE)) {
-            feature.setKey(key);
-            feature.setBinding(false);
-        }
-
-        if (feature.isBinding() && key == Keyboard.KEY_DELETE) {
-            feature.setKey(Keyboard.KEY_DELETE);
+        if (feature.isBinding() && (key == Keyboard.KEY_DELETE || key == Keyboard.KEY_BACK)) {
+            feature.setKey(Keyboard.KEY_NONE);
             feature.setBinding(false);
         }
 
         if (feature.isBinding() && key == Keyboard.KEY_ESCAPE) {
-            feature.setKey(Keyboard.KEY_G);
             feature.setBinding(false);
         }
-        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 1, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+
+        if (feature.isBinding() && !(key == Keyboard.KEY_NONE || key == Keyboard.KEY_DELETE)) {
+            feature.setKey(key);
+            feature.setBinding(false);
+        }
+        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
 
         final String keyName = feature.isBinding() == true ? "..." : Keyboard.getKeyName(feature.getKey());
         NineHack.TEXT_MANAGER.drawStringWithShadow("Bind" + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());

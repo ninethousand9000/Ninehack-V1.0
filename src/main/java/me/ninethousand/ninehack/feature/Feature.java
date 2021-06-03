@@ -2,6 +2,8 @@ package me.ninethousand.ninehack.feature;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.features.client.GUI;
 import me.ninethousand.ninehack.feature.features.client.Notify;
 import me.ninethousand.ninehack.feature.gui.notifications.Notification;
@@ -19,6 +21,8 @@ public abstract class Feature implements NineHack.Globals {
     private final Category category = getAnnotation().category();
 
     private int key = getAnnotation().key();
+
+    public final boolean alwaysEnabled = this.getClass().isAnnotationPresent(AlwaysEnabled.class);
 
     private boolean enabled = false;
     private boolean opened = false;
@@ -80,7 +84,7 @@ public abstract class Feature implements NineHack.Globals {
                         message = name + " disabled.";
                     }
 
-                    NotificationManager.show(new Notification(NotificationType.INFO, "Module Toggle", message, 5));
+                    NotificationManager.show(new Notification(NotificationType.INFO, "Module Toggle", message, 1));
                 }
         }
     }

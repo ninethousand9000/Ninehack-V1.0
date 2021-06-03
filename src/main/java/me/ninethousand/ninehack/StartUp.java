@@ -2,9 +2,11 @@ package me.ninethousand.ninehack;
 
 import me.ninethousand.ninehack.event.EventProcessor;
 import me.ninethousand.ninehack.feature.command.ToggleCommand;
+import me.ninethousand.ninehack.feature.features.client.RPC;
 import me.ninethousand.ninehack.managers.ComponentManager;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.ninethousand.ninehack.managers.TextManager;
+import me.ninethousand.ninehack.util.RPCUtil;
 import me.yagel15637.venture.manager.CommandManager;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -23,6 +25,10 @@ public class StartUp {
         NineHack.log("Commands Initialised");
 
         NineHack.CUSTOM_MAIN_MENU.initGui();
+
+        if (RPC.INSTANCE.isEnabled()) {
+            RPCUtil.startup();
+        }
     }
 
     private static void initCommandManager() {

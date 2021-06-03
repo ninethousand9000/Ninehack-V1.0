@@ -2,10 +2,8 @@ package me.ninethousand.ninehack.feature.features.visual;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.Setting;
-import me.ninethousand.ninehack.util.WorldUtil;
-import net.minecraft.item.ItemSword;
 import net.minecraft.util.EnumHand;
 
 @NineHackFeature(name = "Swing", description = "Swings with hand", category = Category.Visual)

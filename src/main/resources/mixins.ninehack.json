@@ -10,6 +10,10 @@
     "accessors.util.ITimer",
 
     "accessors.game.IEntity",
-    "mixins.game.MixinEntity"
+    "mixins.game.MixinEntity",
+
+    "mixins.game.MixinRenderEnderCrystal",
+
+    "mixins.game.MixinRenderLivingBase"
   ]
 }

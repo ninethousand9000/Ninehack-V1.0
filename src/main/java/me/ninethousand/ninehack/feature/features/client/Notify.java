@@ -1,13 +1,12 @@
 package me.ninethousand.ninehack.feature.features.client;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.mojang.text2speech.Narrator;
 import com.olliem5.pace.annotation.PaceHandler;
 import com.olliem5.pace.modifier.EventPriority;
 import me.ninethousand.ninehack.event.events.TotemPopEvent;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;

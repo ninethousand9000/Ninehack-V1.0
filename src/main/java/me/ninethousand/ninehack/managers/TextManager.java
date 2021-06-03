@@ -17,7 +17,7 @@ public class TextManager implements NineHack.Globals {
     public int scaledHeight;
     public int scaleFactor;
     public CustomFont menuFont = new CustomFont(new Font("Odibee Sans", Font.PLAIN, 40), true, true);
-    public CustomFont customFont = new CustomFont(new Font("Montserrat", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
+    public CustomFont customFont = new CustomFont(new Font("Verdana", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
     private boolean idling;
 
     public TextManager() {
@@ -25,7 +25,7 @@ public class TextManager implements NineHack.Globals {
     }
 
     public void update() {
-        this.customFont = new CustomFont(new Font("Montserrat", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
+        this.customFont = new CustomFont(new Font("Verdana", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
     }
 
     public void drawStringWithShadow(String text, float x, float y, int color) {

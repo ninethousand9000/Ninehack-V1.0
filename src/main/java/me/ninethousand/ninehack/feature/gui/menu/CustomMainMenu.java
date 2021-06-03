@@ -109,8 +109,7 @@ public class CustomMainMenu extends GuiScreen {
         return imgNew;
     }
 
-    private static class TextButton
-            extends GuiButton {
+    private static class TextButton extends GuiButton {
         public TextButton(int buttonId, int x, int y, String buttonText) {
             super(buttonId, x, y, NineHack.TEXT_MANAGER.getStringWidth(buttonText), NineHack.TEXT_MANAGER.getFontHeight(), buttonText);
         }

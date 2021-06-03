@@ -1,10 +1,9 @@
 package me.ninethousand.ninehack.feature.features.client;
 
-import com.olliem5.pace.annotation.PaceHandler;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
 

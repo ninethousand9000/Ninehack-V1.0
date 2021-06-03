@@ -1,5 +1,6 @@
-package me.ninethousand.ninehack.feature;
+package me.ninethousand.ninehack.feature.annotation;
 
+import me.ninethousand.ninehack.feature.Category;
 import org.lwjgl.input.Keyboard;
 
 import java.lang.annotation.Retention;

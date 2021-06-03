@@ -5,7 +5,7 @@ import com.olliem5.pace.modifier.EventPriority;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.gui.hud.components.Component;
 import me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.TextComponent;
 import me.ninethousand.ninehack.feature.gui.hud.components.textcomponent.textcomponents.Watermark;

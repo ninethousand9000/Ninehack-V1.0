@@ -2,7 +2,7 @@ package me.ninethousand.ninehack.feature.features.client;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.util.ColorUtil;
@@ -15,7 +15,7 @@ import java.util.Map;
 public class ClientColor extends Feature {
     public static Feature INSTANCE;
 
-    public static final Setting<Color> GLOBAL_COLOR = new Setting<>("Global Color", new Color(0x695AAD));
+    public static final Setting<Color> GLOBAL_COLOR = new Setting<>("Global Color", new Color(214,214,214,255));
 
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);
     public static final NumberSetting<Integer> rainbowSpeed = new NumberSetting<>("Speed", 0, 20, 100, 1);

@@ -2,9 +2,8 @@ package me.ninethousand.ninehack.feature.features.visual;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.NineHackFeature;
+import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.features.client.GUI;
-import me.ninethousand.ninehack.feature.setting.Setting;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiEditSign;
@@ -16,12 +15,6 @@ import net.minecraftforge.fml.client.GuiModList;
 @NineHackFeature(name = "Blur", description = "Blurs the gui", category = Category.Visual)
 public class Blur extends Feature {
     public static Feature INSTANCE;
-
-    public static final Setting<Boolean> bool = new Setting<>("Help Me", true);
-
-    public Blur() {
-        addSettings(bool);
-    }
 
     @Override
     public void onDisable() {
