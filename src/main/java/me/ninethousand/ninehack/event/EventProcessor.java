@@ -88,6 +88,7 @@ public class EventProcessor implements NineHack.Globals {
             if (module.isEnabled()) {
                 module.onUpdate();
             }
+            module.onTick();
         }
         for (EntityPlayer player : mc.world.playerEntities) {
             if (player == null || player.getHealth() > 0.0F)

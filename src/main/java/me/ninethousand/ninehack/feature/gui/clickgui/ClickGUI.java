@@ -90,13 +90,16 @@ public class ClickGUI implements NineHack.Globals {
 
         RenderUtil.drawRect(x, y, x + WIDTH, y + endY +  settingY, FEATURE_BACKGROUND_COLOR);
 
+        int i = 0;
         for (Feature feature : features) {
             if (mouseHovering(x + 2, y, x + WIDTH - 2, y + HEIGHT - 2, mouseX, mouseY)) {
                 if (leftClicked) feature.setEnabled(!feature.isEnabled());
                 if (rightClicked) feature.setOpened(!feature.isOpened());
             }
 
-            RenderUtil.drawRect(x + 2, y + FEATURE_SPACING, x + WIDTH - 2, y + FEATURE_HEIGHT, feature.isEnabled() ? ACCENT_COLOR : FEATURE_FILL_COLOR);
+            Color current = new Color(ClientColor.colorHeightMap.get(i));
+
+            RenderUtil.drawRect(x + 2, y + FEATURE_SPACING, x + WIDTH - 2, y + FEATURE_HEIGHT, feature.isEnabled() ? current : FEATURE_FILL_COLOR);
             NineHack.TEXT_MANAGER.drawStringWithShadow(feature.getName(), x + 3, y + ((HEIGHT - 2) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
 
             y += HEIGHT - 1;
@@ -106,6 +109,8 @@ public class ClickGUI implements NineHack.Globals {
                 y += boostY;
                 endY += boostY;
             }
+
+            i+=ClientColor.step.getValue();
         }
 
         return endY;
