@@ -1,46 +1,44 @@
 package me.ninethousand.ninehack.feature.gui.clickgui;
 
 import me.ninethousand.ninehack.feature.features.client.GUI;
-import me.ninethousand.ninehack.feature.gui.clickgui.theme.Theme;
-import me.ninethousand.ninehack.feature.gui.clickgui.theme.themes.NineHackTheme;
+import me.ninethousand.ninehack.managers.FeatureManager;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.io.IOException;
 
 public class ClickGUIScreen extends GuiScreen {
-    public static NineHackTheme theme = new NineHackTheme();
-
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        theme.draw(mouseX, mouseY);
+        ClickGUI.drawGUI(0, 0, mouseX, mouseY);
 
-        theme.leftClicked = false;
-        theme.rightClicked = false;
+        ClickGUI.leftClicked = false;
+        ClickGUI.rightClicked = false;
     }
 
     @Override
     protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) {
         if (mouseButton == 0) {
-            theme.leftClicked = true;
-            theme.leftDown = true;
+            ClickGUI.leftClicked = true;
+            ClickGUI.leftDown = true;
         }
 
         if (mouseButton == 1) {
-            theme.rightClicked = true;
-            theme.rightDown = true;
+            ClickGUI.rightClicked = true;
+            ClickGUI.rightDown = true;
         }
     }
 
     @Override
     protected void mouseReleased(final int mouseX, final int mouseY, final int state) {
         if (state == 0) {
-            theme.leftClicked = false;
-            theme.leftDown = false;
+            ClickGUI.leftClicked = false;
+            ClickGUI.leftDown = false;
         }
 
         if (state == 1) {
-            theme.rightClicked = false;
-            theme.rightDown = false;
+            ClickGUI.rightClicked = false;
+            ClickGUI.rightDown = false;
         }
     }
 
@@ -48,7 +46,7 @@ public class ClickGUIScreen extends GuiScreen {
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
 
-        theme.keyDown = keyCode;
+        ClickGUI.keyDown = keyCode;
     }
 
     @Override

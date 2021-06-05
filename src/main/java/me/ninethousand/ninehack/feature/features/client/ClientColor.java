@@ -27,7 +27,7 @@ public class ClientColor extends Feature {
     public static final NumberSetting<Integer> saturation = new NumberSetting<>("Saturation", 0, 255, 255, 1);
     public static final NumberSetting<Integer> brightness = new NumberSetting<>("Brightness", 0, 255, 255, 1);
     public static final NumberSetting<Integer> speed = new NumberSetting<>("Speed", 0, 20, 100, 1);
-    public static final NumberSetting<Integer> step = new NumberSetting<>("Step", 0, 14, 100, 1);
+    public static final NumberSetting<Integer> step = new NumberSetting<>("Step", 0, 14, 30, 1);
 
     public float hue;
     public static Map<Integer, Integer> colorHeightMap = new HashMap<Integer, Integer>();
