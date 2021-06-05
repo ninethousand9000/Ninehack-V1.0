@@ -24,7 +24,7 @@ public class ClickGUI implements NineHack.Globals {
     public static final int FEATURE_SPACING = 1;
     public static final int WIDTH = 110;
     public static final int HEIGHT = 14;
-    public static final int FEATURE_HEIGHT = HEIGHT - 2;
+    public static final int FEATURE_HEIGHT = HEIGHT - 1;
 
     public static Color ACCENT_COLOR = new Color(214,214,214,255);
     public static Color FEATURE_FILL_COLOR = new Color(0xFF474747, true);
@@ -110,7 +110,7 @@ public class ClickGUI implements NineHack.Globals {
                 endY += boostY;
             }
 
-            i+=ClientColor.step.getValue();
+            i++;
         }
 
         return endY;
