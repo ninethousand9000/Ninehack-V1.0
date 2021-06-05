@@ -16,7 +16,7 @@ import java.awt.*;
 /**
  * @author 9k
  * @since May 26th 2021
- * @version 1.0.0 Beta
+ * @version 1.0.0 Alpha Patch 1
  * @apiNote Hello
  */
 
@@ -31,7 +31,6 @@ public class NineHack {
     public static String CHAT_PREFIX = ",";
     public static final int DEFAULT_GUI_KEY = Keyboard.KEY_I;
 
-//    public static final EventHandler EVENT_BUS = new EventHandler();
     public static final EventProcessor EVENT_PROCESSOR = new EventProcessor();
     public static final Logger LOGGER = LogManager.getLogger("ninehack");
     public static final TextManager TEXT_MANAGER = new TextManager();

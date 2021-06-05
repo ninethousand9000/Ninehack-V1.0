@@ -105,6 +105,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                         this.red = WireESP.pColor.getValue().getRed() / 255.0F;
                         this.green = WireESP.pColor.getValue().getGreen() / 255.0F;
                         this.blue = WireESP.pColor.getValue().getBlue() / 255.0F;
+                        float alpha = WireESP.pColor.getValue().getAlpha() / 255.0F;
                         GlStateManager.pushMatrix();
                         GL11.glPushAttrib(1048575);
                         GL11.glDisable(3553);
@@ -119,7 +120,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                         } else {
                             GL11.glColor4f((Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getRed() / 255.0F) : this.red, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getGreen() / 255.0F) : this.green, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getBlue() / 255.0F) : this.blue, (Wireframe.getInstance()).alpha.getValue().floatValue() / 255.0F);
                         }*/
-                        GL11.glColor4f(WireESP.pColor.getValue().getRed(), WireESP.pColor.getValue().getGreen(), WireESP.pColor.getValue().getBlue(), WireESP.pColor.getValue().getAlpha());
+                        GL11.glColor4f(red, green, blue, alpha);
                         renderModel(entity, f6, f5, f8, f2, f7, f4);
                         GL11.glDisable(2896);
                         GL11.glEnable(2929);
@@ -129,7 +130,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                         } else {
                             GL11.glColor4f((Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getRed() / 255.0F) : this.red, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getGreen() / 255.0F) : this.green, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getBlue() / 255.0F) : this.blue, (Wireframe.getInstance()).alpha.getValue().floatValue() / 255.0F);
                         }*/
-                        GL11.glColor4f(WireESP.pColor.getValue().getRed(), WireESP.pColor.getValue().getGreen(), WireESP.pColor.getValue().getBlue(), WireESP.pColor.getValue().getAlpha());
+                        GL11.glColor4f(red, green, blue, alpha);
                         renderModel(entity, f6, f5, f8, f2, f7, f4);
                         GL11.glEnable(2896);
                         GlStateManager.popAttrib();
@@ -158,7 +159,11 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                         } else {
                             GL11.glColor4f((Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getRed() / 255.0F) : this.red, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getGreen() / 255.0F) : this.green, (Wireframe.getInstance()).rainbow.getValue().booleanValue() ? (ColorUtil.rainbow((Wireframe.getInstance()).rainbowHue.getValue().intValue()).getBlue() / 255.0F) : this.blue, (Wireframe.getInstance()).alpha.getValue().floatValue() / 255.0F);
                         }*/
-                        GL11.glColor4f(WireESP.pColor.getValue().getRed(), WireESP.pColor.getValue().getGreen(), WireESP.pColor.getValue().getBlue(), WireESP.pColor.getValue().getAlpha());
+                        this.red = WireESP.pColor.getValue().getRed() / 255.0F;
+                        this.green = WireESP.pColor.getValue().getGreen() / 255.0F;
+                        this.blue = WireESP.pColor.getValue().getBlue() / 255.0F;
+                        float alpha = WireESP.pColor.getValue().getAlpha() / 255.0F;
+                        GL11.glColor4f(red, green, blue, alpha);
                         GL11.glLineWidth(WireESP.pWidth.getValue());
                         renderModel(entity, f6, f5, f8, f2, f7, f4);
                         GL11.glEnable(2896);

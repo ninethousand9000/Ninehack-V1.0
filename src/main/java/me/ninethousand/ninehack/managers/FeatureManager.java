@@ -8,11 +8,8 @@ import me.ninethousand.ninehack.feature.features.movement.AntiWeb;
 import me.ninethousand.ninehack.feature.features.other.SliderTest;
 import me.ninethousand.ninehack.feature.features.player.Ghost;
 import me.ninethousand.ninehack.feature.features.player.PearlBind;
-import me.ninethousand.ninehack.feature.features.visual.Blur;
+import me.ninethousand.ninehack.feature.features.visual.*;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
-import me.ninethousand.ninehack.feature.features.visual.FOV;
-import me.ninethousand.ninehack.feature.features.visual.Swing;
-import me.ninethousand.ninehack.feature.features.visual.WireESP;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +38,7 @@ public final class FeatureManager {
                 FOV.INSTANCE = new FOV(),
                 Swing.INSTANCE = new Swing(),
                 WireESP.INSTANCE = new WireESP(),
+                Menu.INSTANCE = new Menu(),
 
                 // Client Features
                 GUI.INSTANCE = new GUI(),

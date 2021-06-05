@@ -1,5 +1,6 @@
 package me.ninethousand.ninehack.mixin.mixins.game;
 
+import me.ninethousand.ninehack.feature.features.visual.Menu;
 import me.ninethousand.ninehack.feature.gui.menu.CustomMainMenu;
 import me.ninethousand.ninehack.mixin.accessors.game.IMinecraft;
 import me.ninethousand.ninehack.util.Stopper;
@@ -47,14 +48,14 @@ public final class MixinMinecraft implements IMinecraft {
 
     @Inject(method={"runTick()V"}, at={@At(value="RETURN")})
     private void runTick(CallbackInfo callbackInfo) {
-        if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu) {
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu && Menu.INSTANCE.isEnabled()) {
             Minecraft.getMinecraft().displayGuiScreen((GuiScreen)new CustomMainMenu());
         }
     }
 
     @Inject(method={"displayGuiScreen"}, at={@At(value="HEAD")})
     private void displayGuiScreen(GuiScreen screen, CallbackInfo ci) {
-        if (screen instanceof GuiMainMenu) {
+        if (screen instanceof GuiMainMenu && Menu.INSTANCE.isEnabled()) {
             this.displayGuiScreen(new CustomMainMenu());
         }
     }
