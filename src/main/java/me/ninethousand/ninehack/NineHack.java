@@ -4,6 +4,7 @@ import me.ninethousand.ninehack.event.EventProcessor;
 import me.ninethousand.ninehack.feature.gui.menu.CustomMainMenu;
 import me.ninethousand.ninehack.managers.InventoryManager;
 import me.ninethousand.ninehack.managers.TextManager;
+import me.ninethousand.ninehack.util.ConfigUtil;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
@@ -42,6 +43,14 @@ public class NineHack {
         Display.setTitle("ninethousand.dev");
 
         StartUp.start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            ConfigUtil.saveConfig();
+            log("Config Saved!");
+        }));
+
+        ConfigUtil.loadConfig();
+        log("Config Loaded!");
     }
 
     public static void log(String message) {

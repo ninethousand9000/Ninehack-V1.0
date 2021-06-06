@@ -1,15 +1,19 @@
 package me.ninethousand.ninehack.util;
 
+import me.ninethousand.ninehack.NineHack;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class RenderUtil {
+public class RenderUtil implements NineHack.Globals {
+    public static RenderItem itemRender = mc.getRenderItem();
+
     public static void drawRect(double left, double top, double right, double bottom, Color color)
     {
         if (left < right)

@@ -15,4 +15,7 @@ public interface IMinecraft {
 
     @Accessor("timer")
     Timer getTimer();
+
+    @Accessor("integratedServerIsRunning")
+    boolean getIntegratedServerIsRunning();
 }

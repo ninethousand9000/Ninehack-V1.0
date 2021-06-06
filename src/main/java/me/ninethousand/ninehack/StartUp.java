@@ -2,11 +2,9 @@ package me.ninethousand.ninehack;
 
 import me.ninethousand.ninehack.feature.command.ToggleCommand;
 import me.ninethousand.ninehack.feature.features.client.RPC;
-import me.ninethousand.ninehack.managers.ComponentManager;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.ninethousand.ninehack.util.RPCUtil;
 import me.yagel15637.venture.manager.CommandManager;
-import net.minecraftforge.common.MinecraftForge;
 
 public class StartUp {
     public static void start() {
@@ -15,9 +13,6 @@ public class StartUp {
 
         FeatureManager.init();
         NineHack.log("Features Initialised");
-
-        ComponentManager.init();
-        NineHack.log("Components Initialised");
 
         initCommandManager();
         NineHack.log("Commands Initialised");

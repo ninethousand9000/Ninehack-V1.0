@@ -50,6 +50,8 @@ public class Burrow extends Feature {
         );
     }
 
+    // Im add burrow to this client to celebrate pride month #lgbtq on top
+
     @Override
     public void onEnable() {
         originalPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);

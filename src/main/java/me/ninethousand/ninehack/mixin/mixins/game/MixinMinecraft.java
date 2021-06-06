@@ -20,6 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public final class MixinMinecraft implements IMinecraft {
     @Shadow
     private int rightClickDelayTimer;
+
+    @Shadow
+    private boolean integratedServerIsRunning;
+
     @Shadow
     @Final
     private Timer timer;
@@ -40,6 +44,11 @@ public final class MixinMinecraft implements IMinecraft {
     @Override
     public Timer getTimer() {
         return timer;
+    }
+
+    @Override
+    public boolean getIntegratedServerIsRunning() {
+        return integratedServerIsRunning;
     }
 
     private final Stopper stopper = new Stopper();

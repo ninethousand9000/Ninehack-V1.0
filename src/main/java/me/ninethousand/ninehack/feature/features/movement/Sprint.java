@@ -13,6 +13,7 @@ public class Sprint extends Feature {
 
     public static final Setting<SprintMode> mode = new Setting<>("Mode", SprintMode.Rage);
 
+    // very complicated code
 
     public Sprint() {
         addSettings(mode);
