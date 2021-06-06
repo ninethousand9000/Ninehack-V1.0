@@ -17,6 +17,8 @@
     "mixins.game.MixinRenderLivingBase",
 
     "accessors.game.IBlock",
-    "mixins.game.MixinBlock"
+    "mixins.game.MixinBlock",
+
+    "mixins.game.MixinNetworkManager"
   ]
 }

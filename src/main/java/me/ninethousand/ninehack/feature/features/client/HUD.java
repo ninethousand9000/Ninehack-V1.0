@@ -30,7 +30,7 @@ public class HUD extends Feature {
 
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);
     public static final Setting<Boolean> rolling = new Setting<>("Rolling", true);
-    public static final NumberSetting<Integer> hue = new NumberSetting<>("Saturation", 0, 255, 255, 1);
+    public static final NumberSetting<Integer> hue = new NumberSetting<>("Hue", 0, 255, 255, 1);
     public static final NumberSetting<Integer> saturation = new NumberSetting<>("Saturation", 0, 255, 255, 1);
     public static final NumberSetting<Integer> brightness = new NumberSetting<>("Brightness", 0, 255, 255, 1);
 

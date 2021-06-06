@@ -117,7 +117,6 @@ public class EventProcessor implements NineHack.Globals {
     public void onPacketReceive(PacketEvent.Receive event) {
         if (event.getStage() != 0)
             return;
-//        OyVey.serverManager.onPacketReceived();
         if (event.getPacket() instanceof SPacketEntityStatus) {
             SPacketEntityStatus packet = event.getPacket();
             if (packet.getOpCode() == 35 && packet.getEntity(mc.world) instanceof EntityPlayer) {

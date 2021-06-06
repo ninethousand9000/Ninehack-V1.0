@@ -35,9 +35,9 @@ public class Notify extends Feature {
             int l_Count = popMap.get(player.getName());
             popMap.remove(player.getName());
             if (l_Count == 1) {
-                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + ChatFormatting.RED + " totem, thanks to " + NineHack.MOD_NAME);
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totem");
             } else {
-                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + ChatFormatting.RED + " totems, " + "thanks to " + NineHack.MOD_NAME);
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " died after popping " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totems");
             }
         }
     }
@@ -53,9 +53,9 @@ public class Notify extends Feature {
             popMap.put(player.getName(), l_Count);
         }
         if (l_Count == 1) {
-            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + " totem, " + ChatFormatting.RED + "thanks to " + NineHack.MOD_NAME);
+            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totem");
         } else {
-            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GRAY + l_Count + ChatFormatting.RED + " totems, " + ChatFormatting.RED + "thanks to " + NineHack.MOD_NAME);
+            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totems.");
         }
     }
 
