@@ -10,6 +10,7 @@ import me.ninethousand.ninehack.feature.features.player.Ghost;
 import me.ninethousand.ninehack.feature.features.player.PearlBind;
 import me.ninethousand.ninehack.feature.features.visual.*;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
+import scala.tools.reflect.quasiquotes.Holes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public final class FeatureManager {
                 Swing.INSTANCE = new Swing(),
                 WireESP.INSTANCE = new WireESP(),
                 Menu.INSTANCE = new Menu(),
+                HoleESP.INSTANCE = new HoleESP(),
 
                 // Client Features
                 GUI.INSTANCE = new GUI(),

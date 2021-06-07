@@ -48,9 +48,9 @@ public class HUD extends Feature {
     public static final NumberSetting<Integer> welcomerX = new NumberSetting<>("Welcomer X", 1, 480, 960, 1);
     public static final NumberSetting<Integer> welcomerY = new NumberSetting<>("Welcomer Y", 1, 1, 530, 1);
 
-    public static final Setting<Boolean> coords = new Setting<>("Welcomer", true);
-    public static final NumberSetting<Integer> coordX = new NumberSetting<>("Welcomer X", 1, 1, 960, 1);
-    public static final NumberSetting<Integer> coordY = new NumberSetting<>("Welcomer Y", 1, 530, 530, 1);
+    public static final Setting<Boolean> coords = new Setting<>("Coords", true);
+    public static final NumberSetting<Integer> coordX = new NumberSetting<>("Coords X", 1, 1, 960, 1);
+    public static final NumberSetting<Integer> coordY = new NumberSetting<>("Coords Y", 1, 530, 530, 1);
 
     public static final Setting<Boolean> totems = new Setting<>("Totem", true);
 

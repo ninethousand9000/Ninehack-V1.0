@@ -19,6 +19,9 @@
     "accessors.game.IBlock",
     "mixins.game.MixinBlock",
 
-    "mixins.game.MixinNetworkManager"
+    "mixins.game.MixinNetworkManager",
+
+    "accessors.game.IRenderManager",
+    "mixins.game.MixinRenderManager"
   ]
 }

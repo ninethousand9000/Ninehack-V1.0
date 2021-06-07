@@ -15,6 +15,7 @@ import java.util.Map;
 public class ClientColor extends Feature {
     public static Feature INSTANCE;
 
+    public static final Setting<Boolean> colorMode = new Setting<>("HSB Mode", true);
     public static final Setting<Color> GLOBAL_COLOR = new Setting<>("Global Color", new Color(214,214,214,255));
 
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);
@@ -28,6 +29,7 @@ public class ClientColor extends Feature {
 
     public ClientColor() {
         addSettings(
+                colorMode,
                 GLOBAL_COLOR,
                 rainbow,
                 saturation,
@@ -53,9 +55,14 @@ public class ClientColor extends Feature {
     public void onTick() {
         int colorSpeed = (int) (101 - speed.getValue());
         float tempHue = this.hue = (float) (System.currentTimeMillis() % (long) (360 * colorSpeed)) / (360.0f * (float) colorSpeed);
-        for (int i = 0; i <= 510; ++i) {
+        for (int i = 0; i <= 510 * 8; ++i) {
             this.colorHeightMap.put(i, Color.HSBtoRGB(tempHue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f));
-            tempHue += 0.0013071896f;
+            if (tempHue + 0.0013071896f < 1) {
+                tempHue += 0.0013071896f;
+            }
+            else {
+                tempHue = 0;
+            }
         }
     }
 

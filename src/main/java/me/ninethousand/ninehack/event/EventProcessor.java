@@ -1,12 +1,10 @@
 package me.ninethousand.ninehack.event;
 
 import com.google.common.base.Strings;
+import com.ibm.icu.text.TimeUnitFormat;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
-import me.ninethousand.ninehack.event.events.DeathEvent;
-import me.ninethousand.ninehack.event.events.PacketEvent;
-import me.ninethousand.ninehack.event.events.Render2DEvent;
-import me.ninethousand.ninehack.event.events.TotemPopEvent;
+import me.ninethousand.ninehack.event.events.*;
 import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.feature.features.client.Notify;
 import me.ninethousand.ninehack.managers.FeatureManager;
@@ -155,11 +153,11 @@ public class EventProcessor implements NineHack.Globals {
             OyVey.serverManager.update();*/
     }
 
-    /*@SubscribeEvent
+    @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
         if (event.isCanceled())
             return;
-        mc.profiler.startSection("oyvey");
+        mc.profiler.startSection("ninehack");
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
@@ -168,7 +166,13 @@ public class EventProcessor implements NineHack.Globals {
         GlStateManager.disableDepth();
         GlStateManager.glLineWidth(1.0F);
         Render3DEvent render3dEvent = new Render3DEvent(event.getPartialTicks());
-        OyVey.moduleManager.onRender3D(render3dEvent);
+
+        for (Feature feature : FeatureManager.getFeatures()) {
+            if (feature.isEnabled()) {
+                feature.onRender3D(render3dEvent);
+            }
+        }
+
         GlStateManager.glLineWidth(1.0F);
         GlStateManager.shadeModel(7424);
         GlStateManager.disableBlend();
@@ -182,7 +186,7 @@ public class EventProcessor implements NineHack.Globals {
         GlStateManager.enableBlend();
         GlStateManager.enableDepth();
         mc.profiler.endSection();
-    }*/
+    }
 
     @SubscribeEvent
     public void renderHUD(RenderGameOverlayEvent.Post event) {

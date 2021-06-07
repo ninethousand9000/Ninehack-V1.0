@@ -27,7 +27,6 @@ public class NineHack {
     public static final String MOD_NAME = "NineHack";
     public static final String MOD_VERSION = "1.0.0";
     public static final String MOD_EDITION = "Pre-Release";
-    public static final String APP_ID = "847411619914711061";
     public static final String NAME_VERSION = MOD_NAME + " v" + MOD_VERSION;
     public static String CHAT_PREFIX = ",";
     public static final int DEFAULT_GUI_KEY = Keyboard.KEY_I;

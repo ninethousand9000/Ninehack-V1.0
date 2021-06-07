@@ -256,5 +256,30 @@ public class MathsUtil implements NineHack.Globals {
         double posZ = (double) forward * speed * sin - (double) side * speed * cos;
         return new double[]{posX, posZ};
     }
+
+    public static List<Vec3d> getBlockBlocks(Entity entity) {
+        ArrayList<Vec3d> vec3ds = new ArrayList<Vec3d>();
+        AxisAlignedBB bb = entity.getEntityBoundingBox();
+        double y = entity.posY;
+        double minX = MathsUtil.round(bb.minX, 0);
+        double minZ = MathsUtil.round(bb.minZ, 0);
+        double maxX = MathsUtil.round(bb.maxX, 0);
+        double maxZ = MathsUtil.round(bb.maxZ, 0);
+        if (minX != maxX) {
+            vec3ds.add(new Vec3d(minX, y, minZ));
+            vec3ds.add(new Vec3d(maxX, y, minZ));
+            if (minZ != maxZ) {
+                vec3ds.add(new Vec3d(minX, y, maxZ));
+                vec3ds.add(new Vec3d(maxX, y, maxZ));
+                return vec3ds;
+            }
+        } else if (minZ != maxZ) {
+            vec3ds.add(new Vec3d(minX, y, minZ));
+            vec3ds.add(new Vec3d(minX, y, maxZ));
+            return vec3ds;
+        }
+        vec3ds.add(entity.getPositionVector());
+        return vec3ds;
+    }
 }
 

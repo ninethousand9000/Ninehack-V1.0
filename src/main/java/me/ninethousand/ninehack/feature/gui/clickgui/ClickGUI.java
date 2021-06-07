@@ -8,6 +8,7 @@ import me.ninethousand.ninehack.feature.features.client.GUI;
 import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.FeatureManager;
+import me.ninethousand.ninehack.util.ColorUtil;
 import me.ninethousand.ninehack.util.RenderUtil;
 import org.apache.commons.lang3.text.WordUtils;
 import org.lwjgl.input.Keyboard;
@@ -25,6 +26,7 @@ public class ClickGUI implements NineHack.Globals {
     public static final int WIDTH = 110;
     public static final int HEIGHT = 14;
     public static final int FEATURE_HEIGHT = HEIGHT - 2;
+    public static final int FEATURE_WIDTH = HEIGHT - 2;
 
     public static int cHeight = 0;
 
@@ -208,17 +210,54 @@ public class ClickGUI implements NineHack.Globals {
 
 
         if (setting.isOpened()) {
+            Color newColor;
             NineHack.TEXT_MANAGER.drawStringWithShadow("..", x + WIDTH - 10, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 2, FONT_COLOR.getRGB());
-            y += FEATURE_HEIGHT;
-            int red = drawColorSlider("Red", setting.getValue().getRed(), x, y, mouseX, mouseY);
-            y += FEATURE_HEIGHT;
-            int green = drawColorSlider("Green", setting.getValue().getGreen(), x, y, mouseX, mouseY);
-            y += FEATURE_HEIGHT;
-            int blue = drawColorSlider("Blue", setting.getValue().getBlue(), x, y, mouseX, mouseY);
-            y += FEATURE_HEIGHT;
-            int alpha = drawColorSlider("Alpha", setting.getValue().getAlpha(), x, y, mouseX, mouseY);
-            y += FEATURE_HEIGHT;
-            Color newColor = new Color(red, green, blue, alpha);
+            if (ClientColor.colorMode.getValue()) {
+                float[] hsb = new float[3];
+                hsb = Color.RGBtoHSB(setting.getValue().getRed(), setting.getValue().getGreen(), setting.getValue().getBlue(), hsb);
+
+                float hueN = hsb[0];
+                if (setting.isRainbow()) {
+                    if (hueN * 255 < 255) {
+                        hueN = hueN + 1 / 255f ;
+                    }
+                    else {
+                        hueN = 0;
+                    }
+                }
+
+                y += FEATURE_HEIGHT;
+                int hue = drawColorSlider("Hue", (int) (hueN * 255f), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int saturation = drawColorSlider("Saturation", (int) (hsb[1] * 255f), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int brightness = drawColorSlider("Brightness", (int) (hsb[2] * 255f), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int alpha = drawColorSlider("Alpha", setting.getValue().getAlpha(), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                drawRainbowButton(setting, x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+
+                Color col = new Color(Color.HSBtoRGB(hue / 255f, saturation / 255f, brightness / 255f));
+                int r = col.getRed();
+                int g = col.getGreen();
+                int b = col.getBlue();
+                newColor = new Color(r, g, b, alpha);
+            }
+            else {
+                y += FEATURE_HEIGHT;
+                int red = drawColorSlider("Red", setting.getValue().getRed(), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int green = drawColorSlider("Green", setting.getValue().getGreen(), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int blue = drawColorSlider("Blue", setting.getValue().getBlue(), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                int alpha = drawColorSlider("Alpha", setting.getValue().getAlpha(), x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                drawRainbowButton(setting, x, y, mouseX, mouseY);
+                y += FEATURE_HEIGHT;
+                newColor = new Color(red, green, blue, alpha);
+            }
 
             RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
             RenderUtil.drawRect(x + WIDTH - 10, y + FEATURE_HEIGHT / 4, x + WIDTH - 4, y + 3 * (FEATURE_HEIGHT / 4), ClientColor.GLOBAL_COLOR.getValue());
@@ -231,7 +270,7 @@ public class ClickGUI implements NineHack.Globals {
             else {
                 setting.setValue(newColor);
             }
-            return FEATURE_HEIGHT * 6;
+            return FEATURE_HEIGHT * 7;
         }
         else {
             NineHack.TEXT_MANAGER.drawStringWithShadow("...", x + WIDTH - 10, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 2, FONT_COLOR.getRGB());
@@ -274,6 +313,18 @@ public class ClickGUI implements NineHack.Globals {
         NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(String.valueOf(colorValue)), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(colorType + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
 
         return colorValue;
+    }
+
+    private static void drawRainbowButton(Setting<Color> setting, int x, int y, int mouseX, int mouseY) {
+        if (mouseHovering(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, mouseX, mouseY)) {
+            if (leftClicked) setting.setRainbow(!setting.isRainbow());
+        }
+
+        final char[] delimiters = { ' ', '_' };
+
+        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+        NineHack.TEXT_MANAGER.drawStringWithShadow("Rainbow" + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
+        NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(String.valueOf(setting.isRainbow())), x + 6 + NineHack.TEXT_MANAGER.getStringWidth("Rainbow" + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
     }
 
     private static int drawIntegerSetting(NumberSetting<Integer> setting , int x, int y, int mouseX, int mouseY) {
@@ -425,7 +476,7 @@ public class ClickGUI implements NineHack.Globals {
         for (Setting<?> setting : feature.getSettings()) {
             if (setting.getValue() instanceof Color) {
                 if (setting.isOpened()) {
-                    boostY += FEATURE_HEIGHT * 6;
+                    boostY += FEATURE_HEIGHT * 7;
                 }
                 else {
                     boostY += FEATURE_HEIGHT;

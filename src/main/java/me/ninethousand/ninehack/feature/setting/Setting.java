@@ -10,6 +10,9 @@ public class Setting<T> {
 
     private boolean isOpened;
 
+    private boolean rainbow;
+
+
     private float alpha = 0.2f;
 
     private final ArrayList<Setting<?>> subSettings = new ArrayList<>();
@@ -92,5 +95,13 @@ public class Setting<T> {
 
     public void setAlpha(float alpha) {
         this.alpha = alpha;
+    }
+
+    public boolean isRainbow() {
+        return rainbow;
+    }
+
+    public void setRainbow(boolean rainbow) {
+        this.rainbow = rainbow;
     }
 }

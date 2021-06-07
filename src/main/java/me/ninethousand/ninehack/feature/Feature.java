@@ -3,6 +3,7 @@ package me.ninethousand.ninehack.feature;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.event.events.Render2DEvent;
+import me.ninethousand.ninehack.event.events.Render3DEvent;
 import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.features.client.GUI;
@@ -182,6 +183,8 @@ public abstract class Feature implements NineHack.Globals {
     public void onTick() {}
 
     public void on2DRenderEvent(Render2DEvent event) {}
+
+    public void onRender3D(Render3DEvent event) {}
 
 
 
