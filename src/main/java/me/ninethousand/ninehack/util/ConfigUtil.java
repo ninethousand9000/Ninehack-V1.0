@@ -12,6 +12,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class ConfigUtil {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -292,6 +294,19 @@ public final class ConfigUtil {
                         }
                     }
                 }
+
+                if (setting.getValue() instanceof Color) {
+                    Setting<Color> colorSetting = (Setting<Color>) setting;
+                    ArrayList<Integer> arr = new ArrayList<>();
+                    arr.addAll(Arrays.asList(
+                            colorSetting.getValue().getRed(),
+                            colorSetting.getValue().getGreen(),
+                            colorSetting.getValue().getBlue(),
+                            colorSetting.getValue().getAlpha()
+                    ));
+
+                    settingObject.add(colorSetting.getName(), new JsonPrimitive(String.valueOf(arr)));
+                }
             }
 
             moduleObject.add("Settings", settingObject);
@@ -348,6 +363,11 @@ public final class ConfigUtil {
                     settingValueObject = settingObject.get(floatSetting.getName());
                 }
 
+                if (setting.getValue() instanceof Color) {
+                    Setting<Color> colorSetting = (Setting<Color>) setting;
+                    settingValueObject = settingObject.get(colorSetting.getName());
+                }
+
                 if (settingValueObject != null) {
                     if (setting.getValue() instanceof Boolean) {
                         Setting<Boolean> booleanSetting = (Setting<Boolean>) setting;
@@ -373,6 +393,14 @@ public final class ConfigUtil {
                         NumberSetting<Float> floatSetting = (NumberSetting<Float>) setting;
                         floatSetting.setValue(settingValueObject.getAsFloat());
                     }
+
+                    if (setting.getValue() instanceof Color) {
+                        Setting<Color> colorSetting = (Setting<Color>) setting;
+                        String value = settingValueObject.getAsString().replaceAll("\\[", "").replaceAll("\\]","").replaceAll(" ", "");
+                        String[] values = value.split(",");
+                        colorSetting.setValue(new Color(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3])));
+                    }
+
                 }
             }
 

@@ -17,7 +17,7 @@ import java.awt.*;
 /**
  * @author 9k
  * @since May 26th 2021
- * @version 1.0.0 Alpha Patch 1
+ * @version 1.0.1
  * @apiNote Hello
  */
 
@@ -25,7 +25,7 @@ import java.awt.*;
 public class NineHack {
     public static final String MOD_ID = "ninehack";
     public static final String MOD_NAME = "NineHack";
-    public static final String MOD_VERSION = "1.0.0";
+    public static final String MOD_VERSION = "1.0.1";
     public static final String MOD_EDITION = "Pre-Release";
     public static final String NAME_VERSION = MOD_NAME + " v" + MOD_VERSION;
     public static String CHAT_PREFIX = ",";
