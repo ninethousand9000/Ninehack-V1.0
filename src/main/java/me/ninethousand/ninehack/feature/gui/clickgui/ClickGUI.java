@@ -219,17 +219,10 @@ public class ClickGUI implements NineHack.Globals {
                 hsb = Color.RGBtoHSB(setting.getValue().getRed(), setting.getValue().getGreen(), setting.getValue().getBlue(), hsb);
 
                 float hueN = hsb[0];
-                if (setting.isRainbow()) {
-                    if (hueN * 255 < 255) {
-                        hueN = hueN + 1 / 255f ;
-                    }
-                    else {
-                        hueN = 0;
-                    }
-                }
+
 
                 y += FEATURE_HEIGHT;
-                int hue = drawColorSlider("Hue", (int) (hueN * 255f), x, y, mouseX, mouseY);
+                int hue = drawColorSlider("Hue", (int) (hsb[0] * 255f), x, y, mouseX, mouseY);
                 y += FEATURE_HEIGHT;
                 int saturation = drawColorSlider("Saturation", (int) (hsb[1] * 255f), x, y, mouseX, mouseY);
                 y += FEATURE_HEIGHT;
@@ -244,6 +237,9 @@ public class ClickGUI implements NineHack.Globals {
                 int r = col.getRed();
                 int g = col.getGreen();
                 int b = col.getBlue();
+
+
+
                 newColor = new Color(r, g, b, alpha);
             }
             else {

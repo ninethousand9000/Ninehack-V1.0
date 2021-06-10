@@ -5,7 +5,6 @@ import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.feature.features.client.*;
 import me.ninethousand.ninehack.feature.features.combat.Burrow;
 import me.ninethousand.ninehack.feature.features.movement.AntiWeb;
-import me.ninethousand.ninehack.feature.features.other.ChatMods;
 import me.ninethousand.ninehack.feature.features.player.Ghost;
 import me.ninethousand.ninehack.feature.features.player.PearlBind;
 import me.ninethousand.ninehack.feature.features.visual.*;
@@ -31,7 +30,7 @@ public final class FeatureManager {
                 Ghost.INSTANCE = new Ghost(),
 
                 // Other Features
-                ChatMods.INSTANCE = new ChatMods(),
+
 
                 // Visual Features
                 Blur.INSTANCE = new Blur(),
@@ -44,10 +43,10 @@ public final class FeatureManager {
                 // Client Features
                 GUI.INSTANCE = new GUI(),
                 HUD.INSTANCE = new HUD(),
-                ClientFont.INSTANCE = new ClientFont(),
+                CustomFont.INSTANCE = new CustomFont(),
                 ClientColor.INSTANCE = new ClientColor(),
                 RPC.INSTANCE = new RPC(),
-                Notify.INSTANCE = new Notify()
+                Chat.INSTANCE = new Chat()
         ));
 
         features.sort(FeatureManager::alphabetize);

@@ -1,21 +1,18 @@
 package me.ninethousand.ninehack.event;
 
-import com.google.common.base.Strings;
-import com.ibm.icu.text.TimeUnitFormat;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.event.events.*;
 import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.features.client.Notify;
+import me.ninethousand.ninehack.feature.features.client.ClientColor;
+import me.ninethousand.ninehack.feature.features.client.Chat;
+import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.FeatureManager;
-import me.ninethousand.ninehack.util.TimerUtil;
+import me.ninethousand.ninehack.util.Timer;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
-import net.minecraft.network.play.server.SPacketPlayerListItem;
-import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,15 +21,13 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EventProcessor implements NineHack.Globals {
-    private final TimerUtil logoutTimer = new TimerUtil();
+    private final Timer logoutTimer = new Timer();
     private final AtomicBoolean tickOngoing;
 
     public EventProcessor() {
@@ -87,12 +82,20 @@ public class EventProcessor implements NineHack.Globals {
                 module.onUpdate();
             }
             module.onTick();
+            for (Setting<?> setting : module.getSettings()) {
+                if (setting.getValue() instanceof Color) {
+                    Setting<Color> colorSetting = (Setting<Color>) setting;
+                    if (setting.isRainbow()) {
+                        colorSetting.setValue(new Color(ClientColor.colorHeightMap.get(0)));
+                    }
+                }
+            }
         }
         for (EntityPlayer player : mc.world.playerEntities) {
             if (player == null || player.getHealth() > 0.0F)
                 continue;
             MinecraftForge.EVENT_BUS.post(new DeathEvent(player));
-            Notify.INSTANCE.onDeath(player);
+            Chat.INSTANCE.onDeath(player);
         }
     }
 
@@ -120,7 +123,7 @@ public class EventProcessor implements NineHack.Globals {
             if (packet.getOpCode() == 35 && packet.getEntity(mc.world) instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) packet.getEntity(mc.world);
                 MinecraftForge.EVENT_BUS.post(new TotemPopEvent(player));
-                Notify.INSTANCE.onTotemPop(player);
+                Chat.INSTANCE.onTotemPop(player);
             }
         }
         /*if (event.getPacket() instanceof SPacketPlayerListItem && !nullCheck() && this.logoutTimer.passedS(1.0D)) {

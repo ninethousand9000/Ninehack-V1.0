@@ -2,6 +2,7 @@ package me.ninethousand.ninehack.feature.features.client;
 
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
+import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
@@ -11,11 +12,12 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@AlwaysEnabled
 @NineHackFeature(name = "Colors", description = "Modify the client colors", category = Category.Client)
 public class ClientColor extends Feature {
     public static Feature INSTANCE;
 
-    public static final Setting<Boolean> colorMode = new Setting<>("HSB Mode", true);
+    public static final Setting<Boolean> colorMode = new Setting<>("HSB Mode", false);
     public static final Setting<Color> GLOBAL_COLOR = new Setting<>("Global Color", new Color(214,214,214,255));
 
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);

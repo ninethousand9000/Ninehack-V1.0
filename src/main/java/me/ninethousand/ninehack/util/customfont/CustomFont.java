@@ -1,6 +1,5 @@
 package me.ninethousand.ninehack.util.customfont;
 
-import me.ninethousand.ninehack.feature.features.client.ClientFont;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
@@ -46,7 +45,7 @@ public class CustomFont extends CFont {
         String text = textIn;
         double x = xI;
         double y = yI;
-        if (ClientFont.INSTANCE.isEnabled() && !ClientFont.shadow.getValue() && shadow) {
+        if (me.ninethousand.ninehack.feature.features.client.CustomFont.INSTANCE.isEnabled() && !me.ninethousand.ninehack.feature.features.client.CustomFont.shadow.getValue() && shadow) {
             x -= 0.5;
             y -= 0.5;
         }

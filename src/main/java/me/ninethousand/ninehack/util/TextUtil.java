@@ -146,6 +146,5 @@ public class TextUtil {
         LIGHT_PURPLE,
         YELLOW,
         RAINBOW
-
     }
 }

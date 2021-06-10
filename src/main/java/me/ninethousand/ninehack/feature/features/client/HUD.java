@@ -1,6 +1,5 @@
 package me.ninethousand.ninehack.feature.features.client;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.event.events.Render2DEvent;
 import me.ninethousand.ninehack.feature.Category;
@@ -18,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 @NineHackFeature(name = "HUD", description = "Based HUD", category = Category.Client)
@@ -159,7 +157,7 @@ public class HUD extends Feature {
     }
 
     public void drawText(String text, int x, int y) {
-        if (rolling.getValue()) NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f), factor.getValue(), ClientFont.shadow.getValue());
+        if (rolling.getValue()) NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f), factor.getValue(), CustomFont.shadow.getValue());
         else NineHack.TEXT_MANAGER.drawStringWithShadow(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f));
     }
 

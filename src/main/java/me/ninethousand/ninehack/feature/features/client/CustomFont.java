@@ -3,12 +3,14 @@ package me.ninethousand.ninehack.feature.features.client;
 import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
+import me.ninethousand.ninehack.feature.annotation.EnabledByDefault;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.NumberSetting;
 import me.ninethousand.ninehack.feature.setting.Setting;
 
+@EnabledByDefault
 @NineHackFeature(name = "Font", description = "Modify the client fonts", category = Category.Client)
-public class ClientFont extends Feature {
+public class CustomFont extends Feature {
     public static Feature INSTANCE;
 
     public static final Setting<Boolean> shadow = new Setting<>("Shadow", true);
@@ -16,7 +18,7 @@ public class ClientFont extends Feature {
     public static final Setting<FontStyle> style = new Setting<>("Style", FontStyle.Normal);
     public static final Setting<Boolean> override = new Setting<>("Override", true);
 
-    public ClientFont() {
+    public CustomFont() {
         addSettings(
                 shadow,
                 size,

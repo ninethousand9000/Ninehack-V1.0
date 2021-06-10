@@ -1,23 +1,20 @@
 package me.ninethousand.ninehack.managers;
 
 import me.ninethousand.ninehack.NineHack;
-import me.ninethousand.ninehack.feature.Feature;
-import me.ninethousand.ninehack.feature.features.client.ClientFont;
+import me.ninethousand.ninehack.feature.features.client.CustomFont;
 import me.ninethousand.ninehack.util.MathsUtil;
-import me.ninethousand.ninehack.util.TimerUtil;
-import me.ninethousand.ninehack.util.customfont.CustomFont;
-import net.minecraft.client.renderer.GlStateManager;
+import me.ninethousand.ninehack.util.Timer;
 import net.minecraft.util.math.MathHelper;
 
 import java.awt.*;
 
 public class TextManager implements NineHack.Globals {
-    private final TimerUtil idleTimer = new TimerUtil();
+    private final Timer idleTimer = new Timer();
     public int scaledWidth;
     public int scaledHeight;
     public int scaleFactor;
-    public CustomFont menuFont = new CustomFont(new Font("Odibee Sans", Font.PLAIN, 40), true, true);
-    public CustomFont customFont = new CustomFont(new Font("Verdana", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
+    public me.ninethousand.ninehack.util.customfont.CustomFont menuFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Odibee Sans", Font.PLAIN, 40), true, true);
+    public me.ninethousand.ninehack.util.customfont.CustomFont customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Verdana", CustomFont.style.getValue().ordinal(), CustomFont.size.getValue()), true, true);
     private boolean idling;
 
     public TextManager() {
@@ -25,7 +22,7 @@ public class TextManager implements NineHack.Globals {
     }
 
     public void update() {
-        this.customFont = new CustomFont(new Font("Verdana", ClientFont.style.getValue().ordinal(), ClientFont.size.getValue()), true, true);
+        this.customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Verdana", CustomFont.style.getValue().ordinal(), CustomFont.size.getValue()), true, true);
     }
 
     public void drawStringWithShadow(String text, float x, float y, int color) {
@@ -41,7 +38,7 @@ public class TextManager implements NineHack.Globals {
 
 
     public float drawString(String text, float x, float y, int color, boolean shadow) {
-        if (ClientFont.INSTANCE.isEnabled()) {
+        if (CustomFont.INSTANCE.isEnabled()) {
             if (shadow) {
                 return this.customFont.drawStringWithShadow(text, x, y, color);
             }
@@ -89,7 +86,7 @@ public class TextManager implements NineHack.Globals {
     }
 
     public int getStringWidth(String text) {
-        if (ClientFont.INSTANCE.isEnabled()) {
+        if (CustomFont.INSTANCE.isEnabled()) {
             return this.customFont.getStringWidth(text);
         }
         return TextManager.mc.fontRenderer.getStringWidth(text);
@@ -100,7 +97,7 @@ public class TextManager implements NineHack.Globals {
     }
 
     public int getFontHeight() {
-        if (ClientFont.INSTANCE.isEnabled()) {
+        if (CustomFont.INSTANCE.isEnabled()) {
             String text = "A";
             return this.customFont.getStringHeight(text);
         }
@@ -113,7 +110,7 @@ public class TextManager implements NineHack.Globals {
     }
 
     public void setFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics) {
-        this.customFont = new CustomFont(font, antiAlias, fractionalMetrics);
+        this.customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(font, antiAlias, fractionalMetrics);
     }
 
     public Font getCurrentFont() {

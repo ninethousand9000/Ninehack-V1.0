@@ -5,9 +5,10 @@ import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.event.events.Render2DEvent;
 import me.ninethousand.ninehack.event.events.Render3DEvent;
 import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
+import me.ninethousand.ninehack.feature.annotation.EnabledByDefault;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.features.client.GUI;
-import me.ninethousand.ninehack.feature.features.client.Notify;
+import me.ninethousand.ninehack.feature.features.client.Chat;
 import me.ninethousand.ninehack.feature.gui.notifications.Notification;
 import me.ninethousand.ninehack.feature.gui.notifications.NotificationType;
 import me.ninethousand.ninehack.feature.setting.Setting;
@@ -26,13 +27,20 @@ public abstract class Feature implements NineHack.Globals {
     private int key = getAnnotation().key();
 
     public final boolean alwaysEnabled = this.getClass().isAnnotationPresent(AlwaysEnabled.class);
+    public final boolean enabledByDefault = this.getClass().isAnnotationPresent(EnabledByDefault.class);
 
-    private boolean enabled = false;
+    private boolean enabled = alwaysEnabled || enabledByDefault;
     private boolean opened = false;
     private boolean binding = false;
     private boolean drawn = true;
 
     private final ArrayList<Setting<?>> settings = new ArrayList<>();
+
+    public Feature() {
+        if (this.alwaysEnabled) {
+
+        }
+    }
 
     private NineHackFeature getAnnotation() {
         if (getClass().isAnnotationPresent(NineHackFeature.class)) {
@@ -57,7 +65,7 @@ public abstract class Feature implements NineHack.Globals {
     }
 
     public void disable() {
-        enabled = false;
+        enabled = alwaysEnabled ? true : false;
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -69,10 +77,10 @@ public abstract class Feature implements NineHack.Globals {
     private void handleNotifications(boolean enable) {
         if (nullCheck()) return;
 
-        if (Notify.moduleToggle.getValue() != Notify.ModuleToggleMode.None) {
+        if (Chat.moduleToggle.getValue() != Chat.ModuleToggleMode.None) {
             String message;
             if (this.getClass() != GUI.class)
-                if (Notify.moduleToggle.getValue() == Notify.ModuleToggleMode.Chat) {
+                if (Chat.moduleToggle.getValue() == Chat.ModuleToggleMode.Chat) {
                     if (enable) {
                         message =  ChatFormatting.GREEN + name + " enabled.";
                     } else {
@@ -80,7 +88,7 @@ public abstract class Feature implements NineHack.Globals {
                     }
                     ChatUtil.sendClientMessage(message);
                 }
-                else if (Notify.moduleToggle.getValue() == Notify.ModuleToggleMode.HUD) {
+                else if (Chat.moduleToggle.getValue() == Chat.ModuleToggleMode.HUD) {
                     if (enable) {
                         message =  name + " enabled.";
                     } else {

@@ -1,5 +1,5 @@
 package me.ninethousand.ninehack.util;
-public class TimerUtil {
+public class Timer {
     private long time = -1L;
 
     public boolean passedS(double s) {
@@ -30,7 +30,7 @@ public class TimerUtil {
         return this.getMs(System.nanoTime() - this.time);
     }
 
-    public TimerUtil reset() {
+    public Timer reset() {
         this.time = System.nanoTime();
         return this;
     }

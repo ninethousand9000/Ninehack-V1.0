@@ -1,21 +1,20 @@
 package me.ninethousand.ninehack.feature.features.client;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.ninethousand.ninehack.NineHack;
 import me.ninethousand.ninehack.event.events.DeathEvent;
 import me.ninethousand.ninehack.event.events.PacketEvent;
 import me.ninethousand.ninehack.event.events.Render2DEvent;
 import me.ninethousand.ninehack.feature.Category;
 import me.ninethousand.ninehack.feature.Feature;
+import me.ninethousand.ninehack.feature.annotation.AlwaysEnabled;
 import me.ninethousand.ninehack.feature.annotation.NineHackFeature;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;
+import me.ninethousand.ninehack.util.TextUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraft.network.play.client.CPacketUseEntity;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -23,17 +22,26 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-@NineHackFeature(name = "Notify", description = "Notify you when things happen", category = Category.Client)
-public class Notify extends Feature {
-    public static Notify INSTANCE;
+@AlwaysEnabled
+@NineHackFeature(name = "Chat", description = "Notify you when things happen", category = Category.Client)
+public class Chat extends Feature {
+    public static Chat INSTANCE;
+
+    public static final Setting<PrefixString> prefixString = new Setting<>("Prefix String", PrefixString.NineHack);
+    public static final Setting<TextUtil.Color> prefixColor = new Setting<>("Prefix Color", TextUtil.Color.RAINBOW);
+
+    public static final Setting<Boolean> clear = new Setting<>("Clear Chatbox", true);
 
     public static final Setting<Boolean> totemPop = new Setting<>("Totem Pop", false);
     public static final Setting<Boolean> autoEz = new Setting<>("AutoEZ", false);
 
     public static final Setting<ModuleToggleMode> moduleToggle = new Setting<>("Module Toggle", ModuleToggleMode.Chat);
 
-    public Notify() {
+    public Chat() {
         addSettings(
+                prefixString,
+                prefixColor,
+                clear,
                 totemPop,
                 moduleToggle,
                 autoEz
@@ -58,17 +66,19 @@ public class Notify extends Feature {
     public void onTotemPop(EntityPlayer player) {
         if (nullCheck()) return;
 
-        int l_Count = 1;
-        if (popMap.containsKey(player.getName())) {
-            l_Count = popMap.get(player.getName());
-            popMap.put(player.getName(), ++l_Count);
-        } else {
-            popMap.put(player.getName(), l_Count);
-        }
-        if (l_Count == 1) {
-            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totem");
-        } else {
-            ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totems.");
+        if (totemPop.getValue()) {
+            int l_Count = 1;
+            if (popMap.containsKey(player.getName())) {
+                l_Count = popMap.get(player.getName());
+                popMap.put(player.getName(), ++l_Count);
+            } else {
+                popMap.put(player.getName(), l_Count);
+            }
+            if (l_Count == 1) {
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totem");
+            } else {
+                ChatUtil.sendClientMessageSimple(ChatFormatting.RED + player.getName() + " popped " + ChatFormatting.GREEN + l_Count + ChatFormatting.RED + " totems.");
+            }
         }
     }
 
@@ -144,5 +154,22 @@ public class Notify extends Feature {
         None,
         Chat,
         HUD
+    }
+
+    public enum PrefixString {
+        NineHack,
+        Dev,
+        CurryWare,
+        Rwahack,
+        Reapsense,
+        BoboHack,
+        x8Hack,
+        PedroHack,
+        MomHack,
+        xcc7Ware,
+        WhaleHack,
+        Skylight,
+        Jimboware,
+        JoeWare
     }
 }

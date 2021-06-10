@@ -1,8 +1,8 @@
 package me.ninethousand.ninehack.mixin.mixins.game;
 
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.feature.features.client.Chat;
 import me.ninethousand.ninehack.feature.features.client.ClientColor;
-import me.ninethousand.ninehack.feature.features.other.ChatMods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ChatLine;
 import net.minecraft.client.gui.FontRenderer;
@@ -26,7 +26,7 @@ public class MixinGuiNewChat extends Gui {
 
     @Redirect(method={"drawChat"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/GuiNewChat;drawRect(IIIII)V"))
     private void drawRectHook(int left, int top, int right, int bottom, int color) {
-        Gui.drawRect((int)left, (int)top, (int)right, (int)bottom, (int)(ChatMods.INSTANCE.isEnabled() && ChatMods.clear.getValue() != false ? 0 : color));
+        Gui.drawRect((int)left, (int)top, (int)right, (int)bottom, (int)(Chat.INSTANCE.isEnabled() && Chat.clear.getValue() != false ? 0 : color));
     }
 
     @Redirect(method={"drawChat"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
