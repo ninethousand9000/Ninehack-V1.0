@@ -5,12 +5,11 @@ import me.ninethousand.ninehack.feature.Feature;
 import me.ninethousand.ninehack.feature.features.client.*;
 import me.ninethousand.ninehack.feature.features.combat.Burrow;
 import me.ninethousand.ninehack.feature.features.movement.AntiWeb;
-import me.ninethousand.ninehack.feature.features.other.SliderTest;
+import me.ninethousand.ninehack.feature.features.other.ChatMods;
 import me.ninethousand.ninehack.feature.features.player.Ghost;
 import me.ninethousand.ninehack.feature.features.player.PearlBind;
 import me.ninethousand.ninehack.feature.features.visual.*;
 import me.ninethousand.ninehack.feature.features.movement.Sprint;
-import scala.tools.reflect.quasiquotes.Holes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +31,7 @@ public final class FeatureManager {
                 Ghost.INSTANCE = new Ghost(),
 
                 // Other Features
-                SliderTest.INSTANCE = new SliderTest(),
+                ChatMods.INSTANCE = new ChatMods(),
 
                 // Visual Features
                 Blur.INSTANCE = new Blur(),

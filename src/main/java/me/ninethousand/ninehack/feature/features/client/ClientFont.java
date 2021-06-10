@@ -14,12 +14,14 @@ public class ClientFont extends Feature {
     public static final Setting<Boolean> shadow = new Setting<>("Shadow", true);
     public static final NumberSetting<Integer> size = new NumberSetting<>("Size", 10, 17, 30, 0);
     public static final Setting<FontStyle> style = new Setting<>("Style", FontStyle.Normal);
+    public static final Setting<Boolean> override = new Setting<>("Override", true);
 
     public ClientFont() {
         addSettings(
                 shadow,
                 size,
-                style
+                style,
+                override
                 );
     }
 

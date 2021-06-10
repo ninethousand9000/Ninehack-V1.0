@@ -30,7 +30,8 @@ public class ClickGUI implements NineHack.Globals {
 
     public static int cHeight = 0;
 
-    public static Color ACCENT_COLOR = new Color(214,214,214,255);
+    public static Color HEADER_COLOR = new Color(61, 34, 194, 161);
+    public static Color ACCENT_COLOR = new Color(80, 80, 174, 255);
     public static Color FEATURE_FILL_COLOR = new Color(0xFF474747, true);
     public static Color FEATURE_BACKGROUND_COLOR = new Color(0x52181818, true);
     public static Color FONT_COLOR = new Color(0xFFFFFF);
@@ -61,7 +62,7 @@ public class ClickGUI implements NineHack.Globals {
             // if outline draw the outline
             if (GUI.outline.getValue()) {
                 if (category.isOpenInGui() && !(FeatureManager.getFeaturesInCategory(category).size() <= 0)) totalY++;
-                RenderUtil.drawOutlineRect(x + 0.3D, y, x + WIDTH , y + totalY - EDGE_SPACING_Y, ACCENT_COLOR, 1.2f);
+                RenderUtil.drawOutlineRect(x + 0.3D, y, x + WIDTH , y + totalY - EDGE_SPACING_Y, HEADER_COLOR, 2f);
             }
 
             // increase x to the next category x coord
@@ -73,7 +74,7 @@ public class ClickGUI implements NineHack.Globals {
         if (mouseHovering(x, y, x + WIDTH, y + HEIGHT, mouseX, mouseY) && rightClicked)
             category.setOpenInGui(!category.isOpenInGui());
 
-        RenderUtil.drawRect(x, y, x + WIDTH, y + HEIGHT, FEATURE_FILL_COLOR);
+        RenderUtil.drawRect(x, y, x + WIDTH, y + HEIGHT, HEADER_COLOR);
         NineHack.TEXT_MANAGER.drawStringWithShadow(category.name(), x + (WIDTH / 2 - mc.fontRenderer.getStringWidth(category.name()) / 2), y + (HEIGHT / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 1, FONT_COLOR.getRGB());
 
         return HEIGHT;
@@ -103,8 +104,9 @@ public class ClickGUI implements NineHack.Globals {
             }
 
             cHeight += ClientColor.step.getValue();
+            Color featC = GUI.gradientFeatures.getValue() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : ACCENT_COLOR;
 
-            RenderUtil.drawRect(x + 2, y + FEATURE_SPACING, x + WIDTH - 2, y + FEATURE_HEIGHT, feature.isEnabled() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : FEATURE_FILL_COLOR);
+            RenderUtil.drawRect(x + 2, y + FEATURE_SPACING, x + WIDTH - 2, y + FEATURE_HEIGHT, feature.isEnabled() ?  featC : FEATURE_FILL_COLOR);
             NineHack.TEXT_MANAGER.drawStringWithShadow(feature.getName(), x + 3, y + ((HEIGHT - 2) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
 
             y += HEIGHT - 2;
@@ -273,7 +275,7 @@ public class ClickGUI implements NineHack.Globals {
             return FEATURE_HEIGHT * 7;
         }
         else {
-            NineHack.TEXT_MANAGER.drawStringWithShadow("...", x + WIDTH - 10, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 2, FONT_COLOR.getRGB());
+            NineHack.TEXT_MANAGER.drawStringWithShadow("...", x + WIDTH - NineHack.TEXT_MANAGER.getStringWidth("...") - 4, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 2, FONT_COLOR.getRGB());
             return FEATURE_HEIGHT;
         }
     }
@@ -304,9 +306,10 @@ public class ClickGUI implements NineHack.Globals {
         RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
 
         cHeight += ClientColor.step.getValue();
+        Color featC = GUI.gradientFeatures.getValue() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : ACCENT_COLOR;
 
         if (progress > 0) {
-            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, new Color(ClientColor.colorHeightMap.get(cHeight)));
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, featC);
         }
 
         NineHack.TEXT_MANAGER.drawStringWithShadow(colorType + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
@@ -353,9 +356,10 @@ public class ClickGUI implements NineHack.Globals {
         RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
 
         cHeight += ClientColor.step.getValue();
+        Color featC = GUI.gradientFeatures.getValue() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : ACCENT_COLOR;
 
         if (progress > 0) {
-            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, new Color(ClientColor.colorHeightMap.get(cHeight)));
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, featC);
         }
 
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
@@ -390,9 +394,10 @@ public class ClickGUI implements NineHack.Globals {
         RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
 
         cHeight += ClientColor.step.getValue();
+        Color featC = GUI.gradientFeatures.getValue() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : ACCENT_COLOR;
 
         if (progress > 0) {
-            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, new Color(ClientColor.colorHeightMap.get(cHeight)));
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, featC);
         }
 
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
@@ -427,9 +432,10 @@ public class ClickGUI implements NineHack.Globals {
         RenderUtil.drawRect(x + 2, y - 1, x + settingWidth, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
 
         cHeight += ClientColor.step.getValue();
+        Color featC = GUI.gradientFeatures.getValue() ? new Color(ClientColor.colorHeightMap.get(cHeight)) : ACCENT_COLOR;
 
         if (progress > 0) {
-            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, new Color(ClientColor.colorHeightMap.get(cHeight)));
+            RenderUtil.drawRect(x + 2, y - 1, x + progress, y + FEATURE_HEIGHT, featC);
         }
 
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());

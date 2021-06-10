@@ -30,6 +30,7 @@ public class HUD extends Feature {
 
     public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", true);
     public static final Setting<Boolean> rolling = new Setting<>("Rolling", true);
+    public static final NumberSetting<Integer> factor = new NumberSetting<>("Rolling Factor", 0, 10, 100, 1);
     public static final NumberSetting<Integer> hue = new NumberSetting<>("Hue", 0, 255, 255, 1);
     public static final NumberSetting<Integer> saturation = new NumberSetting<>("Saturation", 0, 255, 255, 1);
     public static final NumberSetting<Integer> brightness = new NumberSetting<>("Brightness", 0, 255, 255, 1);
@@ -61,6 +62,7 @@ public class HUD extends Feature {
         addSettings(
                 rainbow,
                 rolling,
+                factor,
                 hue,
                 saturation,
                 brightness,
@@ -157,7 +159,7 @@ public class HUD extends Feature {
     }
 
     public void drawText(String text, int x, int y) {
-        if (rolling.getValue()) NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f), 10f, ClientFont.shadow.getValue());
+        if (rolling.getValue()) NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f), factor.getValue(), ClientFont.shadow.getValue());
         else NineHack.TEXT_MANAGER.drawStringWithShadow(text, x, y, Color.HSBtoRGB(hue.getValue() / 255f, saturation.getValue() / 255f, brightness.getValue() / 255f));
     }
 

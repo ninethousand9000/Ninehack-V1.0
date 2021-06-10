@@ -18,16 +18,20 @@ public class GUI extends Feature {
 
     public static final Setting<Boolean> pause = new Setting<>("Pause Game", false);
     public static final Setting<Boolean> outline = new Setting<>("Outline", true);
-    public static final Setting<Color> accentColor = new Setting<>("Accent", new Color(214,214,214,255));
-    public static final Setting<Color> featureFill = new Setting<>("Fill", new Color(0xFF474747, true));
-    public static final Setting<Color> featureBackground = new Setting<>("Background", new Color(0x52181818, true));
-    public static final Setting<Color> fontColor = new Setting<>("Font", new Color(0xFFFFFFFF, true));
+    public static final Setting<Boolean> gradientFeatures = new Setting<>("Gradient", false);
+    public static final Setting<Color> headerColor = new Setting<>("Header", ClickGUI.HEADER_COLOR);
+    public static final Setting<Color> accentColor = new Setting<>("Accent", ClickGUI.ACCENT_COLOR);
+    public static final Setting<Color> featureFill = new Setting<>("Fill", ClickGUI.FEATURE_FILL_COLOR);
+    public static final Setting<Color> featureBackground = new Setting<>("Background", ClickGUI.FEATURE_BACKGROUND_COLOR);
+    public static final Setting<Color> fontColor = new Setting<>("Font", ClickGUI.FONT_COLOR);
 
     public static final GuiScreen gui = new ClickGUIScreen();
 
     public GUI() {
         addSettings(
                 outline,
+                gradientFeatures,
+                headerColor,
                 accentColor,
                 featureFill,
                 featureBackground,

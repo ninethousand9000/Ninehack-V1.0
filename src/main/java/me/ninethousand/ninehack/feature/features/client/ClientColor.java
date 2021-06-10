@@ -24,7 +24,7 @@ public class ClientColor extends Feature {
     public static final NumberSetting<Integer> speed = new NumberSetting<>("Speed", 0, 20, 100, 1);
     public static final NumberSetting<Integer> step = new NumberSetting<>("Step", 0, 14, 30, 1);
 
-    public float hue;
+    public static float hue;
     public static Map<Integer, Integer> colorHeightMap = new HashMap<Integer, Integer>();
 
     public ClientColor() {
@@ -54,7 +54,7 @@ public class ClientColor extends Feature {
     @Override
     public void onTick() {
         int colorSpeed = (int) (101 - speed.getValue());
-        float tempHue = this.hue = (float) (System.currentTimeMillis() % (long) (360 * colorSpeed)) / (360.0f * (float) colorSpeed);
+        float tempHue = hue = (float) (System.currentTimeMillis() % (long) (360 * colorSpeed)) / (360.0f * (float) colorSpeed);
         for (int i = 0; i <= 510 * 8; ++i) {
             this.colorHeightMap.put(i, Color.HSBtoRGB(tempHue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f));
             if (tempHue + 0.0013071896f < 1) {
@@ -68,14 +68,14 @@ public class ClientColor extends Feature {
 
     public int getCurrentColorHex() {
         if (this.rainbow.getValue().booleanValue()) {
-            return Color.HSBtoRGB(this.hue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f);
+            return Color.HSBtoRGB(hue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f);
         }
         return ColorUtil.toARGB(GLOBAL_COLOR.getValue().getRed(), GLOBAL_COLOR.getValue().getGreen(), GLOBAL_COLOR.getValue().getBlue(), GLOBAL_COLOR.getValue().getAlpha());
     }
 
     public Color getCurrentColor() {
         if (this.rainbow.getValue().booleanValue()) {
-            return Color.getHSBColor(this.hue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f);
+            return Color.getHSBColor(hue, (float) saturation.getValue().intValue() / 255.0f, (float) brightness.getValue().intValue() / 255.0f);
         }
         return new Color(GLOBAL_COLOR.getValue().getRed(), GLOBAL_COLOR.getValue().getGreen(), GLOBAL_COLOR.getValue().getBlue(), GLOBAL_COLOR.getValue().getAlpha());
     }

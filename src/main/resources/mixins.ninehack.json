@@ -22,6 +22,10 @@
     "mixins.game.MixinNetworkManager",
 
     "accessors.game.IRenderManager",
-    "mixins.game.MixinRenderManager"
+    "mixins.game.MixinRenderManager",
+
+    "mixins.game.MixinGuiNewChat",
+
+    "mixins.game.MixinFontRenderer"
   ]
 }

@@ -113,6 +113,8 @@ public class TextUtil {
                 coloredString = YELLOW + coloredString + RESET;
                 break;
             }
+            case RAINBOW:
+                coloredString = RAINBOW + coloredString + RESET;
         }
         return coloredString;
     }
@@ -142,7 +144,8 @@ public class TextUtil {
         AQUA,
         RED,
         LIGHT_PURPLE,
-        YELLOW
+        YELLOW,
+        RAINBOW
 
     }
 }
