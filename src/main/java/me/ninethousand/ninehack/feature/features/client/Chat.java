@@ -12,6 +12,7 @@ import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.NotificationManager;
 import me.ninethousand.ninehack.util.ChatUtil;
 import me.ninethousand.ninehack.util.TextUtil;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
@@ -27,10 +28,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Chat extends Feature {
     public static Chat INSTANCE;
 
-    public static final Setting<PrefixString> prefixString = new Setting<>("Prefix String", PrefixString.NineHack);
+    public static final Setting<String> prefixString = new Setting<>("Prefix String", "NineHack");
     public static final Setting<TextUtil.Color> prefixColor = new Setting<>("Prefix Color", TextUtil.Color.RAINBOW);
+    public static final Setting<PrefixBracket> prefixBracket = new Setting<>("Prefix Bracket", PrefixBracket.Arrow);
 
-    public static final Setting<Boolean> clear = new Setting<>("Clear Chatbox", true);
+    public static final Setting<Boolean> customFontChat = new Setting<>("Custom Chat", false);
+    public static final Setting<Boolean> clear = new Setting<>("Clear Chatbox", false);
 
     public static final Setting<Boolean> totemPop = new Setting<>("Totem Pop", false);
     public static final Setting<Boolean> autoEz = new Setting<>("AutoEZ", false);
@@ -41,6 +44,8 @@ public class Chat extends Feature {
         addSettings(
                 prefixString,
                 prefixColor,
+                prefixBracket,
+                customFontChat,
                 clear,
                 totemPop,
                 moduleToggle,
@@ -171,5 +176,13 @@ public class Chat extends Feature {
         Skylight,
         Jimboware,
         JoeWare
+    }
+    public enum PrefixBracket {
+        Square,
+        Round,
+        Curly,
+        Arrow,
+        Double,
+        None
     }
 }

@@ -26,53 +26,20 @@ public class ChatUtil implements NineHack.Globals {
     }
 
     public static String getPrefix() {
-        String prefix = "Hi";
+        String prefix = Chat.prefixString.getValue();
 
-        switch (Chat.prefixString.getValue()) {
-            case NineHack:
-                prefix = "NineHack";
-                break;
-            case Dev:
-                prefix = "ninethousand.dev";
-                break;
-            case CurryWare:
-                prefix = "CurryWare";
-                break;
-            case Rwahack:
-                prefix = "Rwahack";
-                break;
-            case Reapsense:
-                prefix = "Reapsense 2.0";
-                break;
-            case BoboHack:
-                prefix = "BoboHack";
-                break;
-            case x8Hack:
-                prefix = "x8Hack";
-                break;
-            case PedroHack:
-                prefix = "PedroHack";
-                break;
-            case MomHack:
-                prefix = "MomHack";
-                break;
-            case xcc7Ware:
-                prefix = "xcc7ware";
-                break;
-            case WhaleHack:
-                prefix = "WhaleHack";
-                break;
-            case Skylight:
-                prefix = "Skylight";
-                break;
-            case Jimboware:
-                prefix = "JimboWare";
-                break;
-            case JoeWare:
-                prefix = "JoeWare";
-                break;
+        switch (Chat.prefixBracket.getValue()) {
+            case Arrow:
+                return TextUtil.coloredString("<" + prefix + ">", Chat.prefixColor.getValue());
+            case Double:
+                return TextUtil.coloredString(prefix + " >>", Chat.prefixColor.getValue());
+            case Square:
+                return TextUtil.coloredString("[" + prefix + "]", Chat.prefixColor.getValue());
+            case Round:
+                return TextUtil.coloredString("(" + prefix + ")", Chat.prefixColor.getValue());
+            case Curly:
+                return TextUtil.coloredString("{" + prefix + "}", Chat.prefixColor.getValue());
         }
-
-        return TextUtil.coloredString("[" + prefix + "]", Chat.prefixColor.getValue());
+        return TextUtil.coloredString(prefix, Chat.prefixColor.getValue());
     }
 }

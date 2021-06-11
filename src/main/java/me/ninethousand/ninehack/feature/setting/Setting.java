@@ -10,6 +10,8 @@ public class Setting<T> {
 
     private boolean isOpened;
 
+    private boolean isTyping;
+
     private boolean rainbow;
 
 
@@ -79,6 +81,14 @@ public class Setting<T> {
 
     public boolean isOpened() {
         return isOpened;
+    }
+
+    public boolean isTyping() {
+        return isTyping;
+    }
+
+    public void setTyping(boolean typing) {
+        isTyping = typing;
     }
 
     public void setValue(T value) {

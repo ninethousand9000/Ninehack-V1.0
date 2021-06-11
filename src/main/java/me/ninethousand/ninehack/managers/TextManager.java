@@ -13,7 +13,7 @@ public class TextManager implements NineHack.Globals {
     public int scaledWidth;
     public int scaledHeight;
     public int scaleFactor;
-    public me.ninethousand.ninehack.util.customfont.CustomFont menuFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Odibee Sans", Font.PLAIN, 40), true, true);
+    public me.ninethousand.ninehack.util.customfont.CustomFont menuFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Impact", Font.PLAIN, 40), true, true);
     public me.ninethousand.ninehack.util.customfont.CustomFont customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Verdana", CustomFont.style.getValue().ordinal(), CustomFont.size.getValue()), true, true);
     private boolean idling;
 
@@ -21,8 +21,8 @@ public class TextManager implements NineHack.Globals {
         this.updateResolution();
     }
 
-    public void update() {
-        this.customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font("Verdana", CustomFont.style.getValue().ordinal(), CustomFont.size.getValue()), true, true);
+    public void init() {
+        customFont = new me.ninethousand.ninehack.util.customfont.CustomFont(new Font(CustomFont.fontName.getValue(), CustomFont.style.getValue().ordinal(), CustomFont.size.getValue()), true, true);
     }
 
     public void drawStringWithShadow(String text, float x, float y, int color) {
@@ -39,6 +39,16 @@ public class TextManager implements NineHack.Globals {
 
     public float drawString(String text, float x, float y, int color, boolean shadow) {
         if (CustomFont.INSTANCE.isEnabled()) {
+            if (shadow) {
+                return this.customFont.drawStringWithShadow(text, x, y, color);
+            }
+            return this.customFont.drawString(text, x, y, color);
+        }
+        return TextManager.mc.fontRenderer.drawString(text, x, y, color, shadow);
+    }
+
+    public float drawStringCustomFont(String text, float x, float y, int color, boolean shadow, boolean custom) {
+        if (custom) {
             if (shadow) {
                 return this.customFont.drawStringWithShadow(text, x, y, color);
             }
@@ -75,6 +85,44 @@ public class TextManager implements NineHack.Globals {
                 break;
             }
             this.drawString(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float) currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB(), shadow);
+            if (String.valueOf(currentChar).equals("\u00a7")) {
+                shouldContinue = true;
+            }
+            currentWidth += this.getStringWidth(String.valueOf(currentChar));
+            if (String.valueOf(currentChar).equals(" ")) continue;
+            currentColor = new Color(Color.HSBtoRGB(currentHue, saturation, brightness));
+            currentHue += hueIncrement;
+        }
+    }
+
+    public void drawRainbowStringCustomFont(String text, float x, float y, int startColor, float factor, boolean shadow, boolean custom) {
+        Color currentColor = new Color(startColor);
+        float hueIncrement = 1.0f / factor;
+        String[] rainbowStrings = text.split("\u00a7.");
+        float currentHue = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
+        float saturation = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[1];
+        float brightness = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[2];
+        int currentWidth = 0;
+        boolean shouldRainbow = true;
+        boolean shouldContinue = false;
+        for (int i = 0; i < text.length(); ++i) {
+            char currentChar = text.charAt(i);
+            char nextChar = text.charAt(MathsUtil.clamp(i + 1, 0, text.length() - 1));
+            if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
+                shouldRainbow = false;
+            } else if ((String.valueOf(currentChar) + nextChar).equals("\u00a7+")) {
+                shouldRainbow = true;
+            }
+            if (shouldContinue) {
+                shouldContinue = false;
+                continue;
+            }
+            if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
+                String escapeString = text.substring(i);
+                this.drawString(escapeString, x + (float) currentWidth, y, Color.WHITE.getRGB(), shadow);
+                break;
+            }
+            this.drawStringCustomFont(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float) currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB(), shadow, custom);
             if (String.valueOf(currentChar).equals("\u00a7")) {
                 shouldContinue = true;
             }

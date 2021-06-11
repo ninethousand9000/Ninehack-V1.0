@@ -10,25 +10,31 @@ import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.ninethousand.ninehack.util.ColorUtil;
 import me.ninethousand.ninehack.util.RenderUtil;
+import me.ninethousand.ninehack.util.Timer;
+import net.minecraft.client.gui.GuiScreen;
 import org.apache.commons.lang3.text.WordUtils;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class ClickGUI implements NineHack.Globals {
-    public static final int EDGE_SPACING_X = 2;
-    public static final int EDGE_SPACING_Y = 20;
-    public static final int FEATURE_SPACING = 1;
-    public static final int WIDTH = 110;
-    public static final int HEIGHT = 14;
-    public static final int FEATURE_HEIGHT = HEIGHT - 2;
-    public static final int FEATURE_WIDTH = HEIGHT - 2;
+public class ClickGUI extends GuiScreen {
+    public static int EDGE_SPACING_X = 2;
+    public static int EDGE_SPACING_Y = 20;
+    public static int FEATURE_SPACING = 1;
+    public static int WIDTH = 110;
+    public static int HEIGHT = 16;
+    public static int FEATURE_HEIGHT = HEIGHT - 2;
+    public static int FEATURE_WIDTH = HEIGHT - 2;
 
     public static int cHeight = 0;
+
+    public static final Timer timer = new Timer();
 
     public static Color HEADER_COLOR = new Color(61, 34, 194, 161);
     public static Color ACCENT_COLOR = new Color(80, 80, 174, 255);
@@ -38,6 +44,67 @@ public class ClickGUI implements NineHack.Globals {
 
     public static boolean leftClicked = false, leftDown = false, rightClicked = false, rightDown = false;
     public static int keyDown = Keyboard.KEY_NONE;
+    public static char typed = 't';
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawGUI(0, 0, mouseX, mouseY);
+
+        leftClicked = false;
+        rightClicked = false;
+    }
+
+    @Override
+    protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) {
+        if (mouseButton == 0) {
+            leftClicked = true;
+            leftDown = true;
+        }
+
+        if (mouseButton == 1) {
+            rightClicked = true;
+            rightDown = true;
+        }
+    }
+
+    @Override
+    protected void mouseReleased(final int mouseX, final int mouseY, final int state) {
+        if (state == 0) {
+            leftClicked = false;
+            leftDown = false;
+        }
+
+        if (state == 1) {
+            rightClicked = false;
+            rightDown = false;
+        }
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+
+        keyDown = keyCode;
+        typed = typedChar;
+    }
+
+    protected static int getKey() {
+        int temp = keyDown;
+        keyDown = Keyboard.KEY_NONE;
+        return temp;
+    }
+
+    protected static char getChar() {
+        char temp = typed;
+        typed = '\u0000';
+        return temp;
+    }
+
+    @Override
+    public void onGuiClosed() {
+        GUI.guiOpen = false;
+        GUI.INSTANCE.setEnabled(false);
+    }
 
     public static void drawGUI(int posX, int posY, int mouseX, int mouseY) {
         int x = posX + EDGE_SPACING_X + 20;
@@ -75,7 +142,7 @@ public class ClickGUI implements NineHack.Globals {
             category.setOpenInGui(!category.isOpenInGui());
 
         RenderUtil.drawRect(x, y, x + WIDTH, y + HEIGHT, HEADER_COLOR);
-        NineHack.TEXT_MANAGER.drawStringWithShadow(category.name(), x + (WIDTH / 2 - mc.fontRenderer.getStringWidth(category.name()) / 2), y + (HEIGHT / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 1, FONT_COLOR.getRGB());
+        NineHack.TEXT_MANAGER.drawStringWithShadow(category.name(), x + (WIDTH / 2 - NineHack.TEXT_MANAGER.getStringWidth(category.name()) / 2), y + (HEIGHT / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2) - 1, FONT_COLOR.getRGB());
 
         return HEIGHT;
     }
@@ -132,6 +199,12 @@ public class ClickGUI implements NineHack.Globals {
                 y += settingHeight;
                 boostY += settingHeight;
             }
+            if (setting.getValue() instanceof String) {
+                Setting<String> stringSetting = (Setting<String>) setting;
+                settingHeight = drawStringSetting(stringSetting, x, y, mouseX, mouseY);
+                y += settingHeight;
+                boostY += settingHeight;
+            }
             if (setting.getValue() instanceof Enum) {
                 Setting<Enum> enumSetting = (Setting<Enum>) setting;
                 settingHeight = drawEnumSetting(enumSetting, x, y, mouseX, mouseY);
@@ -182,6 +255,39 @@ public class ClickGUI implements NineHack.Globals {
         RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
         NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
         NineHack.TEXT_MANAGER.drawStringWithShadow(WordUtils.capitalizeFully(setting.getValue().toString()), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(setting.getName() + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
+        return FEATURE_HEIGHT;
+    }
+
+    private static int drawStringSetting(Setting<String> setting , int x, int y, int mouseX, int mouseY) {
+        if (mouseHovering(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, mouseX, mouseY)) {
+            if (leftClicked) setting.setTyping(!setting.isTyping());
+            if (rightClicked) setting.setOpened(!setting.isOpened());
+        }
+
+        int key = getKey();
+        char current = getChar();
+        String currentS = String.valueOf(current);
+
+        if (setting.isTyping()) {
+            if (key == Keyboard.KEY_RETURN) {
+                setting.setTyping(false);
+            }
+            else if (key == Keyboard.KEY_NONE) {
+                // empty
+            }
+            else if ((key == Keyboard.KEY_DELETE || key == Keyboard.KEY_BACK) && setting.getValue().length() > 0) {
+                setting.setValue(setting.getValue().substring(0, setting.getValue().length() - 1));
+            }
+            else if (Character.isDigit(currentS.charAt(0)) || Character.isLetter(currentS.charAt(0)) || key == Keyboard.KEY_SPACE) {
+//                setting.setValue(setting.getValue() + (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? Keyboard.getKeyName(key).toUpperCase() : Keyboard.getKeyName(key).toLowerCase()).charAt(0));
+                setting.setValue(setting.getValue() + (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) ? String.valueOf(current).toUpperCase() : String.valueOf(current).toLowerCase()));
+            }
+        }
+
+        RenderUtil.drawRect(x + 2, y - 1, x + WIDTH - 2, y + FEATURE_HEIGHT, FEATURE_FILL_COLOR);
+        NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getName() + ":", x + 6, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), FONT_COLOR.getRGB());
+        NineHack.TEXT_MANAGER.drawStringWithShadow(setting.getValue(), x + 6 + NineHack.TEXT_MANAGER.getStringWidth(setting.getName() + ":") + 2, y + ((FEATURE_HEIGHT) / 2) - (NineHack.TEXT_MANAGER.getFontHeight() / 2), Color.gray.getRGB());
+
         return FEATURE_HEIGHT;
     }
 

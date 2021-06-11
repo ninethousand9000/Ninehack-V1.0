@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.awt.*;
 import java.util.List;
 
+import static me.ninethousand.ninehack.NineHack.Globals.mc;
+
 @Mixin(value={GuiNewChat.class})
 public class MixinGuiNewChat extends Gui {
     @Shadow
@@ -31,11 +33,20 @@ public class MixinGuiNewChat extends Gui {
 
     @Redirect(method={"drawChat"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
     private int drawStringWithShadow(FontRenderer fontRenderer, String text, float x, float y, int color) {
-        if (text.contains("\u00a7+")) {
-            float colorSpeed = 101 - ClientColor.speed.getValue();
-            NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(ClientColor.hue, 1.0f, 1.0f), 100.0f, true);
+        if (Chat.customFontChat.getValue()) {
+            if (text.contains("\u00a7+")) {
+                float colorSpeed = 101 - ClientColor.speed.getValue();
+                NineHack.TEXT_MANAGER.drawRainbowString(text, x, y, Color.HSBtoRGB(ClientColor.hue, 1.0f, 1.0f), 100.0f, true);
+            } else {
+                NineHack.TEXT_MANAGER.drawStringWithShadow(text, x, y, color);
+            }
         } else {
-            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(text, x, y, color);
+            if (text.contains("\u00a7+")) {
+                float colorSpeed = 101 - ClientColor.speed.getValue();
+                NineHack.TEXT_MANAGER.drawRainbowStringCustomFont(text, x, y, Color.HSBtoRGB(ClientColor.hue, 1.0f, 1.0f), 100.0f, true, false);
+            } else {
+                mc.fontRenderer.drawStringWithShadow(text, x, y, color);
+            }
         }
         return 0;
     }
