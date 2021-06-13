@@ -8,11 +8,13 @@ import me.ninethousand.ninehack.feature.features.client.Chat;
 import me.ninethousand.ninehack.feature.setting.Setting;
 import me.ninethousand.ninehack.managers.FeatureManager;
 import me.ninethousand.ninehack.util.Timer;
+import me.yagel15637.venture.manager.CommandManager;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
+import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -211,13 +213,13 @@ public class EventProcessor implements NineHack.Globals {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+    @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (Keyboard.getEventKeyState()) {
             if (Keyboard.getEventKey() != Keyboard.KEY_NONE) {
-                for (Feature feature : FeatureManager.getFeatures()) {
-                    if (feature.getKey() == Keyboard.getEventKey()) {
-                        feature.toggle();
+                for (Feature module : FeatureManager.getFeatures()) {
+                    if (module.getKey() == Keyboard.getEventKey()) {
+                        module.toggle();
                     }
                 }
 
@@ -226,8 +228,12 @@ public class EventProcessor implements NineHack.Globals {
                 // if someone presses the command prefix, it will open the chat box
                 // with the key prefix already typed in (not working atm :/)
                 if (keyName.equalsIgnoreCase(NineHack.CHAT_PREFIX)) {
-                    mc.displayGuiScreen(new GuiChat("HAHA Faggot!"));
+                    mc.displayGuiScreen(new GuiChat(NineHack.CHAT_PREFIX));
                 }
+
+                try {
+                    MinecraftForge.EVENT_BUS.register(event);
+                } catch (Exception ignored) {}
             }
         }
     }
@@ -249,4 +255,16 @@ public class EventProcessor implements NineHack.Globals {
             }
         }
     }*/
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onClientSent(ClientChatEvent event) {
+        if (event.getMessage().startsWith(NineHack.CHAT_PREFIX)) {
+            event.setCanceled(true);
+
+            mc.ingameGUI.getChatGUI().addToSentMessages(event.getOriginalMessage());
+            CommandManager.parseCommand(event.getMessage().replace(NineHack.CHAT_PREFIX, ""));
+        } else {
+            event.setMessage(event.getMessage());
+        }
+    }
 }

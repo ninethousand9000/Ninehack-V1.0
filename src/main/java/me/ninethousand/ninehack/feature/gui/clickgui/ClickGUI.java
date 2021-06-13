@@ -192,51 +192,53 @@ public class ClickGUI extends GuiScreen {
         int boostY = 0;
         int settingHeight;
         for (Setting<?> setting : feature.getSettings()) {
-            settingHeight = 0;
-            if (setting.getValue() instanceof Boolean) {
-                Setting<Boolean> booleanSetting = (Setting<Boolean>) setting;
-                settingHeight = drawBooleanSetting(booleanSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
+            if (setting.isVisible()) {
+                settingHeight = 0;
+                if (setting.getValue() instanceof Boolean) {
+                    Setting<Boolean> booleanSetting = (Setting<Boolean>) setting;
+                    settingHeight = drawBooleanSetting(booleanSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof String) {
+                    Setting<String> stringSetting = (Setting<String>) setting;
+                    settingHeight = drawStringSetting(stringSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof Enum) {
+                    Setting<Enum> enumSetting = (Setting<Enum>) setting;
+                    settingHeight = drawEnumSetting(enumSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof Color) {
+                    Setting<Color> colorSetting = (Setting<Color>) setting;
+                    settingHeight = drawColorSetting(colorSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof Integer) {
+                    NumberSetting<Integer> integerSetting = (NumberSetting<Integer>) setting;
+                    settingHeight = drawIntegerSetting(integerSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof Double) {
+                    NumberSetting<Double> doubleSetting = (NumberSetting<Double>) setting;
+                    settingHeight = drawDoubleSetting(doubleSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                if (setting.getValue() instanceof Float) {
+                    NumberSetting<Float> floatSetting = (NumberSetting<Float>) setting;
+                    settingHeight = drawFloatSetting(floatSetting, x, y, mouseX, mouseY);
+                    y += settingHeight;
+                    boostY += settingHeight;
+                }
+                y += 1;
+                boostY += 1;
             }
-            if (setting.getValue() instanceof String) {
-                Setting<String> stringSetting = (Setting<String>) setting;
-                settingHeight = drawStringSetting(stringSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            if (setting.getValue() instanceof Enum) {
-                Setting<Enum> enumSetting = (Setting<Enum>) setting;
-                settingHeight = drawEnumSetting(enumSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            if (setting.getValue() instanceof Color) {
-                Setting<Color> colorSetting = (Setting<Color>) setting;
-                settingHeight = drawColorSetting(colorSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            if (setting.getValue() instanceof Integer) {
-                NumberSetting<Integer> integerSetting = (NumberSetting<Integer>) setting;
-                settingHeight = drawIntegerSetting(integerSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            if (setting.getValue() instanceof Double) {
-                NumberSetting<Double> doubleSetting = (NumberSetting<Double>) setting;
-                settingHeight = drawDoubleSetting(doubleSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            if (setting.getValue() instanceof Float) {
-                NumberSetting<Float> floatSetting = (NumberSetting<Float>) setting;
-                settingHeight = drawFloatSetting(floatSetting, x, y, mouseX, mouseY);
-                y += settingHeight;
-                boostY += settingHeight;
-            }
-            y += 1;
-            boostY += 1;
         }
         /*RenderUtil.drawRect(x + 2, ogY - 1, x + 4, ogY + boostY - 1, ACCENT_COLOR);*/
         boostY += drawBind(feature, keyDown, x, y, mouseX, mouseY);
@@ -582,19 +584,21 @@ public class ClickGUI extends GuiScreen {
     private static int getSettingsHeight(Feature feature) {
         int boostY = 0;
         for (Setting<?> setting : feature.getSettings()) {
-            if (setting.getValue() instanceof Color) {
-                if (setting.isOpened()) {
-                    boostY += FEATURE_HEIGHT * 7;
+            if (setting.isVisible()) {
+                if (setting.getValue() instanceof Color) {
+                    if (setting.isOpened()) {
+                        boostY += FEATURE_HEIGHT * 7;
+                    }
+                    else {
+                        boostY += FEATURE_HEIGHT;
+                    }
                 }
                 else {
                     boostY += FEATURE_HEIGHT;
                 }
-            }
-            else {
-                boostY += FEATURE_HEIGHT;
-            }
 
-            boostY += 1;
+                boostY += 1;
+            }
         }
         return boostY;
     }

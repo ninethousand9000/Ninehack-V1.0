@@ -39,6 +39,7 @@ public final class FeatureManager {
                 WireESP.INSTANCE = new WireESP(),
                 Menu.INSTANCE = new Menu(),
                 HoleESP.INSTANCE = new HoleESP(),
+                FutureChams.INSTANCE = new FutureChams(),
 
                 // Client Features
                 GUI.INSTANCE = new GUI(),
@@ -46,7 +47,8 @@ public final class FeatureManager {
                 CustomFont.INSTANCE = new CustomFont(),
                 ClientColor.INSTANCE = new ClientColor(),
                 RPC.INSTANCE = new RPC(),
-                Chat.INSTANCE = new Chat()
+                Chat.INSTANCE = new Chat(),
+                Friends.INSTANCE = new Friends()
         ));
 
         features.sort(FeatureManager::alphabetize);

@@ -26,6 +26,8 @@
 
     "mixins.game.MixinGuiNewChat",
 
-    "mixins.game.MixinFontRenderer"
+    "mixins.game.MixinFontRenderer",
+
+    "mixins.game.MixinRenderPlayer"
   ]
 }

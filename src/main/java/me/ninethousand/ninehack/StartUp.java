@@ -1,5 +1,6 @@
 package me.ninethousand.ninehack;
 
+import me.ninethousand.ninehack.feature.command.FriendCommand;
 import me.ninethousand.ninehack.feature.command.ToggleCommand;
 import me.ninethousand.ninehack.feature.features.client.RPC;
 import me.ninethousand.ninehack.managers.FeatureManager;
@@ -26,7 +27,8 @@ public class StartUp {
 
     private static void initCommandManager() {
         CommandManager.addCommands(
-                new ToggleCommand()
+                new ToggleCommand(),
+                new FriendCommand()
         );
     }
 }

@@ -23,7 +23,30 @@ public class RPCUtil implements NineHack.Globals {
         if (RPC.rpcMode.getValue() == RPC.RPCMode.NineHack) {
             id = "847411619914711061";
 
-            discordRichPresence.largeImageKey = "swag";
+            switch (RPC.rpcImage.getValue()) {
+                case Me:
+                    discordRichPresence.largeImageKey = "9k";
+                    break;
+                case Catgirl:
+                    discordRichPresence.largeImageKey = "catgirl";
+                    break;
+                case EDP:
+                    discordRichPresence.largeImageKey = "edp";
+                    break;
+                case Kitty:
+                    discordRichPresence.largeImageKey = "kitty";
+                    break;
+                case Otter:
+                    discordRichPresence.largeImageKey = "otter";
+                    break;
+                case Swag:
+                    discordRichPresence.largeImageKey = "swag";
+                    break;
+                case Trap:
+                    discordRichPresence.largeImageKey = "trap";
+                    break;
+            }
+
             discordRichPresence.largeImageText = "Version " + NineHack.MOD_VERSION;
         }
         else if (RPC.rpcMode.getValue() == RPC.RPCMode.TuxHack) {

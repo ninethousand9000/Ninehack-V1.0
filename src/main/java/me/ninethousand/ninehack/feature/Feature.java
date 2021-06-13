@@ -158,6 +158,10 @@ public abstract class Feature implements NineHack.Globals {
         this.settings.addAll(Arrays.asList(settings));
     }
 
+    public void removeSettings(Setting<?>... settings) {
+        this.settings.removeAll(Arrays.asList(settings));
+    }
+
     public ArrayList<Setting<?>> getSettings() {
         return settings;
     }

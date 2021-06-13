@@ -10,6 +10,8 @@ public class Setting<T> {
 
     private boolean isOpened;
 
+    private boolean visible = true;
+
     private boolean isTyping;
 
     private boolean rainbow;
@@ -81,6 +83,14 @@ public class Setting<T> {
 
     public boolean isOpened() {
         return isOpened;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public boolean isTyping() {
