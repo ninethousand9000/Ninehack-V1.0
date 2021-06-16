@@ -40,6 +40,7 @@ public final class FeatureManager {
                 Menu.INSTANCE = new Menu(),
                 HoleESP.INSTANCE = new HoleESP(),
                 FutureChams.INSTANCE = new FutureChams(),
+                BreakESP.INSTANCE = new BreakESP(),
 
                 // Client Features
                 GUI.INSTANCE = new GUI(),

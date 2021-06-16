@@ -34,6 +34,7 @@ public class HUD extends Feature {
     public static final NumberSetting<Integer> brightness = new NumberSetting<>("Brightness", 0, 255, 255, 1);
 
     public static final Setting<Boolean> watermark = new Setting<>("Watermark", true);
+    public static final Setting<String> watermarkString = new Setting<>("Text", "Ninehack");
     public static final Setting<WatermarkMode> watermarkMode = new Setting<>("Watermark Mode", WatermarkMode.Default);
     public static final NumberSetting<Integer> watermarkX = new NumberSetting<>("Watermark X", 1, 1, 960, 1);
     public static final NumberSetting<Integer> watermarkY = new NumberSetting<>("Watermark Y", 1, 1, 530, 1);
@@ -65,6 +66,7 @@ public class HUD extends Feature {
                 saturation,
                 brightness,
                 watermark,
+                watermarkString,
                 watermarkMode,
                 watermarkX,
                 watermarkY,
@@ -109,17 +111,14 @@ public class HUD extends Feature {
     }
 
     public void drawWatermark(int x, int y) {
-        String watermark = "Ninehack";
+        String watermark = watermarkString.getValue() + " v" + NineHack.MOD_VERSION;
 
-        if (watermarkMode.getValue() == WatermarkMode.Default) {
-            watermark = NineHack.NAME_VERSION;
-        }
-        else if (watermarkMode.getValue() == WatermarkMode.Tesco) {
+        if (watermarkMode.getValue() == WatermarkMode.Tesco) {
             if (((IMinecraft)mc).getIntegratedServerIsRunning()) {
-                watermark = NineHack.NAME_VERSION + " : " + mc.player.getName() + " : " + "Singleplayer";
+                watermark = watermark + " : " + mc.player.getName() + " : " + "Singleplayer";
             }
             else {
-                watermark = NineHack.NAME_VERSION + " : " + mc.player.getName() + " : " + Objects.requireNonNull(mc.getCurrentServerData()).serverIP;
+                watermark = watermark + " : " + mc.player.getName() + " : " + Objects.requireNonNull(mc.getCurrentServerData()).serverIP;
             }
         }
 

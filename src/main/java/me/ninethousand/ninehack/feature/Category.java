@@ -5,7 +5,6 @@ public enum Category {
     Movement,
     Player,
     Visual,
-    Other,
     Client;
 
     private boolean openInGui = true;

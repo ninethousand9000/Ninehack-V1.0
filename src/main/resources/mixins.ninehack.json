@@ -28,6 +28,9 @@
 
     "mixins.game.MixinFontRenderer",
 
-    "mixins.game.MixinRenderPlayer"
+    "mixins.game.MixinRenderPlayer",
+
+    "accessors.game.IRenderGlobal",
+    "mixins.game.MixinRenderGlobal"
   ]
 }

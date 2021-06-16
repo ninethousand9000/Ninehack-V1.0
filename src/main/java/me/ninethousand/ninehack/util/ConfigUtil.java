@@ -107,6 +107,11 @@ public final class ConfigUtil {
                     }
                 }
 
+                if (setting.getValue() instanceof String) {
+                    Setting<String> stringSetting = (Setting<String>) setting;
+                    settingObject.add(stringSetting.getName(), new JsonPrimitive(stringSetting.getValue()));
+                }
+
                 if (setting.getValue() instanceof Enum) {
                     Setting<Enum<?>> enumSetting = (Setting<Enum<?>>) setting;
                     settingObject.add(enumSetting.getName(), new JsonPrimitive(String.valueOf(enumSetting.getValue())));
@@ -340,6 +345,12 @@ public final class ConfigUtil {
 
                 }
 
+                if (setting.getValue() instanceof String) {
+                    Setting<String> stringSetting = (Setting<String>) setting;
+                    settingValueObject = settingObject.get(stringSetting.getName());
+
+                }
+
                 if (setting.getValue() instanceof Enum) {
                     Setting<Enum<?>> enumSetting = (Setting<Enum<?>>) setting;
                     settingValueObject = settingObject.get(enumSetting.getName());
@@ -372,6 +383,11 @@ public final class ConfigUtil {
                     if (setting.getValue() instanceof Boolean) {
                         Setting<Boolean> booleanSetting = (Setting<Boolean>) setting;
                         booleanSetting.setValue(settingValueObject.getAsBoolean());
+                    }
+
+                    if (setting.getValue() instanceof String) {
+                        Setting<String> stringSetting = (Setting<String>) setting;
+                        stringSetting.setValue(settingValueObject.getAsString());
                     }
 
                     if (setting.getValue() instanceof Enum) {

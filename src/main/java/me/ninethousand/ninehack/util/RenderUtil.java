@@ -1,6 +1,7 @@
 package me.ninethousand.ninehack.util;
 
 import me.ninethousand.ninehack.NineHack;
+import me.ninethousand.ninehack.mixin.accessors.game.IRenderManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.Gui;
@@ -8,6 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +23,37 @@ import java.util.Objects;
 public class RenderUtil implements NineHack.Globals {
     public static RenderItem itemRender = mc.getRenderItem();
     public static ICamera camera;
+
+    public static void drawNametagFromBlockPos(BlockPos pos, float height, String text) {
+        GlStateManager.pushMatrix();
+        glBillboardDistanceScaled(pos.getX() + 0.5f, pos.getY() + height, pos.getZ() + 0.5f, mc.player, 1.0f);
+        GlStateManager.disableDepth();
+        GlStateManager.translate(-(mc.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
+        NineHack.TEXT_MANAGER.drawStringWithShadow(text, 0, 0, -1);
+        GlStateManager.popMatrix();
+    }
+
+    public static void glBillboard(float x, float y, float z) {
+        float scale = 0.02666667f;
+
+        GlStateManager.translate(x - ((IRenderManager) mc.getRenderManager()).getRenderPosX(), y - ((IRenderManager) mc.getRenderManager()).getRenderPosY(), z - ((IRenderManager) mc.getRenderManager()).getRenderPosZ());
+        GlStateManager.glNormal3f(0.0f, 1.0f, 0.0f);
+        GlStateManager.rotate(-mc.player.rotationYaw, 0.0f, 1.0f, 0.0f);
+        GlStateManager.rotate(mc.player.rotationPitch, (mc.gameSettings.thirdPersonView == 2) ? -1.0f : 1.0f, 0.0f, 0.0f);
+        GlStateManager.scale(-scale, -scale, scale);
+    }
+
+    public static void glBillboardDistanceScaled(float x, float y, float z, EntityPlayer player, float scale) {
+        glBillboard(x, y, z);
+        int distance = (int) player.getDistance(x, y, z);
+        float scaleDistance = distance / 2.0f / (2.0f + (2.0f - scale));
+
+        if (scaleDistance < 1.0f)
+            scaleDistance = 1.0f;
+
+        GlStateManager.scale(scaleDistance, scaleDistance, scaleDistance);
+    }
+
 
     public static void drawRect(double left, double top, double right, double bottom, Color color)
     {
